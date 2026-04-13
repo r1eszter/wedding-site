@@ -135,11 +135,52 @@ export default function Home() {
       <div className={isOpen ? "opacity-100 transition-opacity duration-1000" : "opacity-0"}>
         
         {/* HERO SECTION */}
-        <section className="panel h-screen w-full flex items-center justify-center bg-[#f4e4c1] bg-cover bg-center" style={{ backgroundImage: "url('/paper-texture.jpg')" }}>
-          <div className="content text-center p-8 border-2 border-[#d4b896] m-4 rounded-sm shadow-xl">
-            <h1 className="text-5xl font-serif mb-2 text-[#3b2a1a]">Eszter & Péter</h1>
-            <div className="h-px w-20 bg-[#3b2a1a] mx-auto my-4"></div>
-            <p className="text-xl tracking-widest uppercase text-[#3b2a1a]">2026.10.03</p>
+        <section 
+          className="panel h-screen w-full flex items-center justify-center bg-[#f4e4c1] bg-cover bg-center overflow-hidden"
+          style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+        >
+          {/* Külső ragyogás, mintha a papír éle lassan sötétedne (Vignette) */}
+          <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(59,42,26,0.4)] pointer-events-none" />
+
+          <div className="content relative text-center p-12 m-6">
+            
+            {/* Díszes sarkok (Vizuális extrák) */}
+            <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#8b5e34] rounded-tl-sm" />
+            <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-[#8b5e34] rounded-tr-sm" />
+            <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-[#8b5e34] rounded-bl-sm" />
+            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#8b5e34] rounded-br-sm" />
+
+            {/* Fő tartalom */}
+            <div className="relative z-10 px-6 py-10 border border-[#d4b896]/30 bg-[#f4e4c1]/40 backdrop-blur-[2px] shadow-2xl">
+              
+              {/* Apró dísz felül */}
+              <div className="text-[#8b5e34] text-xs tracking-[0.3em] mb-4 uppercase">
+                ✧ A Szövetség Megköttetik ✧
+              </div>
+
+              <h1 className="text-6xl md:text-7xl font-serif text-[#3b2a1a] mb-2 drop-shadow-sm tracking-tight" style={{ fontFamily: "'Cinzel', serif" }}>
+                Eszti <span className="text-[#8b5e34]">&</span> Peti
+              </h1>
+
+              {/* Díszes elválasztó (szimpla vonal helyett valami organikusabb) */}
+              <div className="flex items-center justify-center gap-4 my-6">
+                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#8b5e34]"></div>
+                <div className="rotate-45 w-2 h-2 bg-[#8b5e34]"></div>
+                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#8b5e34]"></div>
+              </div>
+
+              <p className="text-2xl tracking-[0.2em] font-light text-[#5d4037] uppercase" style={{ fontFamily: "'Cinzel', serif" }}>
+                2026 <span className="mx-1">.</span> 10 <span className="mx-1">.</span> 03
+              </p>
+
+              {/* Tünde-szerű alcím */}
+              <p className="mt-8 italic text-[#8b5e34] text-lg font-serif opacity-80">
+                "Egy kaland veszi kezdetét..."
+              </p>
+            </div>
+
+            {/* Finom arany por/ragyogás effekt (opcionális) */}
+            <div className="absolute -inset-4 border border-[#d4b896]/20 scale-105 pointer-events-none" />
           </div>
         </section>
 
