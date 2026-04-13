@@ -122,7 +122,7 @@ export default function Home() {
                 className="w-full h-full object-contain"
               />
             </div>
-            <p className="text-[#f4e4c1] mt-6 font-serif animate-pulse tracking-widest uppercase text-sm">
+            <p className="text-[#f4e4c1] mt-6 font-serif animate-pulse tracking-widest uppercase text-sm text-center max-w-[250px] leading-relaxed drop-shadow-md">
               Nyisd fel a pecsétet, és kezdetét veszi a történet
             </p>
           </div>
