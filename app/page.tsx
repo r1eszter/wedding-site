@@ -101,11 +101,13 @@ export default function Home() {
         >
           <div 
             ref={leftPaperRef}
-            className="absolute left-0 top-0 h-full w-1/2 bg-[#f4e4c1] border-r border-[#d4b896] shadow-2xl z-10 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]"
+            className="absolute left-0 top-0 h-full w-1/2 bg-[#f4e4c1] border-r border-[#d4b896] shadow-2xl z-10 bg-cover bg-center"
+            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
           />
           <div 
             ref={rightPaperRef}
-            className="absolute right-0 top-0 h-full w-1/2 bg-[#f4e4c1] border-l border-[#d4b896] shadow-2xl z-10 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]"
+            className="absolute right-0 top-0 h-full w-1/2 bg-[#f4e4c1] border-l border-[#d4b896] shadow-2xl z-10 bg-cover bg-center"
+            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
           />
 
           {/* pecsét */} 
