@@ -7,57 +7,89 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const containerRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false); // A tekercs állapota
   const [isMobile, setIsMobile] = useState(true);
+  
+  const sealRef = useRef(null);
+  const leftPaperRef = useRef(null);
+  const rightPaperRef = useRef(null);
+  const wrapperRef = useRef(null);
 
   useEffect(() => {
-    // Mobil check
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    // Mobil ellenőrzés
+    setIsMobile(window.innerWidth <= 768);
+  }, []);
 
-    if (isMobile) {
-      const sections = gsap.utils.toArray(".panel");
-      
-      sections.forEach((panel: any, i) => {
-        ScrollTrigger.create({
-          trigger: panel,
-          start: "top top",
-          pin: true, // Itt rögzítjük a szekciót
-          pinSpacing: false, // Ez engedi, hogy a következő rácsússzon
-          snap: 1, // "Odaragad" a kártya széle a tetejéhez
-        });
+  const handleOpen = () => {
+    const tl = gsap.timeline({
+      onComplete: () => setIsOpen(true) // Miután lefutott, jöhet a fő tartalom
+    });
 
-        // Belső tartalom animációja, ahogy ráúszik a következő
-        gsap.fromTo(panel.querySelector(".content"), 
-          { opacity: 0, y: 50 },
-          { 
-            opacity: 1, 
-            y: 0, 
-            duration: 1,
-            scrollTrigger: {
-              trigger: panel,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, [isMobile]);
+    // 1. Pecsét leesik/eltörik és eltűnik
+    tl.to(sealRef.current, { 
+      scale: 1.5, 
+      opacity: 0, 
+      duration: 0.6, 
+      ease: "back.in(1.7)" 
+    })
+    // 2. A két papírfél szétnyílik (mint egy kapu vagy tekercs)
+    .to([leftPaperRef.current, rightPaperRef.current], {
+      width: 0,
+      duration: 1.2,
+      ease: "power2.inOut",
+      stagger: 0.1
+    }, "-=0.2")
+    // 3. Az egész fekete réteg elhalványul
+    .to(wrapperRef.current, {
+      opacity: 0,
+      display: "none",
+      duration: 0.5
+    });
+  };
 
   if (!isMobile) {
-    return (
-      <div className="h-screen flex items-center justify-center text-center p-10 bg-[#1a120b] text-[#f4e4c1]">
-        <h1 className="text-2xl font-serif">Ezt az élményt mobilra terveztük. Kérlek, nyisd meg telefonon! 📱</h1>
-      </div>
-    );
+    return <div className="h-screen flex items-center justify-center">Csak mobilon elérhető 📱</div>;
   }
+
+  return (
+    <div className="relative overflow-x-hidden bg-[#1a120b]">
+      
+      {/* --- PARCHMENT OVERLAY (Az elején látszódik) --- */}
+      {!isOpen && (
+        <div 
+          ref={wrapperRef}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1a120b] overflow-hidden"
+        >
+          {/* Bal oldali papírfél */}
+          <div 
+            ref={leftPaperRef}
+            className="absolute left-0 top-0 h-full w-1/2 bg-[#f4e4c1] border-r border-[#d4b896] shadow-2xl z-10"
+            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+          />
+          
+          {/* Jobb oldali papírfél */}
+          <div 
+            ref={rightPaperRef}
+            className="absolute right-0 top-0 h-full w-1/2 bg-[#f4e4c1] border-l border-[#d4b896] shadow-2xl z-10"
+            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+          />
+
+          {/* A Pecsét (Kattintható) */}
+          <div className="z-20 flex flex-col items-center">
+            <div 
+              ref={sealRef}
+              onClick={handleOpen}
+              className="w-32 h-32 bg-red-800 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] cursor-pointer active:scale-90 transition-transform border-4 border-red-950"
+            >
+              <span className="text-[#f4e4c1] font-serif text-4xl select-none">E&P</span>
+              {/* Ide jöhet a seal.png is: <img src="/seal.png" alt="Seal" /> */}
+            </div>
+            <p className="text-[#f4e4c1] mt-6 font-serif animate-pulse tracking-widest uppercase text-sm">
+              Kattints a feltöréshez
+            </p>
+          </div>
+        </div>
+      )}
 
   return (
     <main ref={containerRef} className="bg-[#1a120b]">
