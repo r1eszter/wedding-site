@@ -135,7 +135,7 @@ export default function Home() {
       <div className={isOpen ? "opacity-100 transition-opacity duration-1000" : "opacity-0"}>
         
         {/* HERO SECTION */}
-        <section className="panel h-screen w-full flex items-center justify-center bg-[#f4e4c1] bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]">
+        <section className="panel h-screen w-full flex items-center justify-center bg-[#f4e4c1] bg-cover bg-center" style={{ backgroundImage: "url('/paper-texture.jpg')" }}>
           <div className="content text-center p-8 border-2 border-[#d4b896] m-4 rounded-sm shadow-xl">
             <h1 className="text-5xl font-serif mb-2 text-[#3b2a1a]">Eszter & Péter</h1>
             <div className="h-px w-20 bg-[#3b2a1a] mx-auto my-4"></div>
