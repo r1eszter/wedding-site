@@ -108,13 +108,19 @@ export default function Home() {
             className="absolute right-0 top-0 h-full w-1/2 bg-[#f4e4c1] border-l border-[#d4b896] shadow-2xl z-10 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]"
           />
 
+          {/* pecsét */} 
           <div className="z-20 flex flex-col items-center">
             <div 
               ref={sealRef}
               onClick={handleOpen}
-              className="w-32 h-32 bg-red-800 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] cursor-pointer active:scale-90 transition-transform border-4 border-red-950"
+              className="w-40 h-40 cursor-pointer active:scale-95 transition-transform drop-shadow-2xl"
             >
-              <span className="text-[#f4e4c1] font-serif text-4xl select-none">E&P</span>
+              {/* A kép beillesztése */}
+              <img 
+                src="/seal.png" 
+                alt="Wedding Seal" 
+                className="w-full h-full object-contain"
+              />
             </div>
             <p className="text-[#f4e4c1] mt-6 font-serif animate-pulse tracking-widest uppercase text-sm">
               Kattints a pecsétre
