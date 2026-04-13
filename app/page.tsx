@@ -7,113 +7,108 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const containerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(true);
-  const sectionsRef = useRef<HTMLDivElement[]>([]);
-  const heroRef = useRef(null);
-  const parchmentRef = useRef(null);
 
   useEffect(() => {
-    // MOBILE CHECK
-    if (window.innerWidth > 768) {
-      setIsMobile(false);
+    // Mobil check
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    if (isMobile) {
+      const sections = gsap.utils.toArray(".panel");
+      
+      sections.forEach((panel: any, i) => {
+        ScrollTrigger.create({
+          trigger: panel,
+          start: "top top",
+          pin: true, // Itt rögzítjük a szekciót
+          pinSpacing: false, // Ez engedi, hogy a következő rácsússzon
+          snap: 1, // "Odaragad" a kártya széle a tetejéhez
+        });
+
+        // Belső tartalom animációja, ahogy ráúszik a következő
+        gsap.fromTo(panel.querySelector(".content"), 
+          { opacity: 0, y: 50 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1,
+            scrollTrigger: {
+              trigger: panel,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
     }
 
-    // SCROLL ANIMATIONS
-    sectionsRef.current.forEach((section) => {
-      gsap.fromTo(
-        section,
-        { opacity: 0, y: 100 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-          },
-        }
-      );
-    });
-
-// PARCHMENT OPEN
-    gsap.fromTo(
-      parchmentRef.current,
-      { scaleY: 0, transformOrigin: "top" },
-      {
-        scaleY: 1,
-        duration: 1.5,
-        ease: "power4.out",
-      }
-    );
-
-    // PARALLAX
-    gsap.to(heroRef.current, {
-      backgroundPosition: "50% 70%",
-      scrollTrigger: {
-        trigger: heroRef.current,
-        scrub: true,
-      },
-    });
-  }, []);
-
-  const addRef = (el: HTMLDivElement | null) => {
-    if (el && !sectionsRef.current.includes(el)) {
-      sectionsRef.current.push(el);
-    }
-  };
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, [isMobile]);
 
   if (!isMobile) {
     return (
-      <div className="h-screen flex items-center justify-center text-center p-10">
-        <h1>This experience is designed for mobile devices 📱</h1>
+      <div className="h-screen flex items-center justify-center text-center p-10 bg-[#1a120b] text-[#f4e4c1]">
+        <h1 className="text-2xl font-serif">Ezt az élményt mobilra terveztük. Kérlek, nyisd meg telefonon! 📱</h1>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#f4e4c1] text-[#3b2a1a] font-serif">
-      {/* HERO */}
-      <section
-        ref={heroRef}
-        className="h-screen flex items-center justify-center bg-[url('/paper.jpg')] bg-cover"
-      >
-        <div
-          ref={parchmentRef}
-          className="bg-[#f4e4c1]/90 p-8 rounded-xl shadow-xl border border-[#d4b896] text-center"
-        >
-          <h1 className="text-4xl font-bold">Eszter & Péter</h1>
-          <p className="mt-2">2026.10.03</p>
-          <p className="italic mt-4">The Fellowship Begins</p>
+    <main ref={containerRef} className="bg-[#1a120b]">
+      {/* 1. SECTION: HERO */}
+      <section className="panel h-screen w-full flex items-center justify-center sticky top-0 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')] bg-[#f4e4c1]">
+        <div className="content text-center p-8 border-2 border-[#d4b896] m-4 rounded-sm shadow-2xl">
+          <h1 className="text-5xl font-serif mb-2">Eszter & Péter</h1>
+          <div className="h-px w-20 bg-[#3b2a1a] mx-auto my-4"></div>
+          <p className="text-xl tracking-widest uppercase">2026.10.03</p>
+          <p className="italic mt-6 text-[#8b5e34]">A Gyűrű Szövetsége útnak indul</p>
         </div>
       </section>
 
-      {/* STORY */}
-      <section ref={addRef} className="h-screen flex items-center justify-center p-6 text-center">
-        <p>Our story begins...</p>
+      {/* 2. SECTION: STORY */}
+      <section className="panel h-screen w-full flex items-center justify-center bg-[#fdf6e3] shadow-[0_-10px_50px_rgba(0,0,0,0.3)]">
+        <div className="content p-10 text-center">
+          <h2 className="text-3xl font-serif mb-6 text-[#5d4037]">Történetünk</h2>
+          <p className="leading-relaxed text-lg italic text-[#3b2a1a]">
+            "Nem mindenki téved el, aki vándorol..." <br/>
+            Közös kalandunk új fejezetéhez érkeztünk.
+          </p>
+        </div>
       </section>
 
-      {/* LOCATION */}
-      <section ref={addRef} className="h-screen flex flex-col items-center justify-center p-6">
-        <h2>The Map</h2>
-        <p>Miskolci Városháza</p>
-        <p>Boróka Tábor</p>
+      {/* 3. SECTION: LOCATION */}
+      <section className="panel h-screen w-full flex items-center justify-center bg-[#f4e4c1] shadow-[0_-10px_50px_rgba(0,0,0,0.3)]">
+        <div className="content p-10 text-center border-x border-[#d4b896]">
+          <h2 className="text-3xl font-serif mb-4">Helyszín</h2>
+          <p className="font-bold uppercase tracking-tighter">Miskolci Városháza</p>
+          <p className="mt-2 text-[#8b5e34]">Ezt követően: Boróka Tábor</p>
+          <button className="mt-8 px-6 py-2 border border-[#3b2a1a] hover:bg-[#3b2a1a] hover:text-white transition-all uppercase text-sm tracking-widest">
+            Térkép megnyitása
+          </button>
+        </div>
       </section>
 
-      {/* SCHEDULE */}
-      <section ref={addRef} className="h-screen flex flex-col items-center justify-center">
-        <h2>The Quest</h2>
-        <p>13:00 Polgári</p>
-        <p>16:00 Vendégváró</p>
-        <p>17:00 Szertartás</p>
+      {/* 4. SECTION: RSVP */}
+      <section className="panel h-screen w-full flex items-center justify-center bg-[#3b2a1a] text-[#f4e4c1]">
+        <div className="content w-full max-w-xs text-center">
+          <h2 className="text-3xl font-serif mb-8 text-[#d4b896]">Visszajelzés</h2>
+          <div className="flex flex-col gap-4">
+            <input 
+              placeholder="Neved" 
+              className="bg-transparent border-b border-[#d4b896] p-2 outline-none focus:border-white transition-colors"
+            />
+            <button className="mt-4 bg-[#d4b896] text-[#3b2a1a] py-3 font-bold uppercase tracking-widest active:scale-95 transition-transform">
+              Ott leszek!
+            </button>
+          </div>
+        </div>
       </section>
-
-      {/* RSVP */}
-      <section ref={addRef} className="h-screen flex flex-col items-center justify-center p-6">
-        <h2>Answer the Call</h2>
-        <input placeholder="Name" className="p-2 border" />
-        <button className="mt-3 p-2 bg-black text-white">Send</button>
-      </section>
-    </div>
+    </main>
   );
 }
