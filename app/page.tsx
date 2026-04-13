@@ -123,7 +123,7 @@ export default function Home() {
               />
             </div>
             <p className="text-[#f4e4c1] mt-6 font-serif animate-pulse tracking-widest uppercase text-sm">
-              Kattints a pecsétre
+              Nyisd fel a pecsétet, és kezdetét veszi a történet
             </p>
           </div>
         </div>
