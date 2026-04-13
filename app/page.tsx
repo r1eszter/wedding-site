@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(true);
-  const sectionsRef = useRef([]);
+  const sectionsRef = useRef<HTMLDivElement[]>([]);
   const heroRef = useRef(null);
   const parchmentRef = useRef(null);
 
@@ -57,7 +57,7 @@ export default function Home() {
     });
   }, []);
 
-  const addRef = (el) => {
+  const addRef = (el: HTMLDivElement | null) => {
     if (el && !sectionsRef.current.includes(el)) {
       sectionsRef.current.push(el);
     }
