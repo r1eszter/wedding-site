@@ -170,7 +170,7 @@ export default function Home() {
             {/* A felnyíló fül */}
             <div
               ref={flapRef}
-              className="absolute left-1/2 top-[112px] -translate-x-1/2 w-[298px] h-[170px] z-20 origin-top"
+              className="absolute left-1/2 top-[112px] -translate-x-1/2 w-[498px] h-[270px] z-20 origin-top"
               style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
             >
               <img
