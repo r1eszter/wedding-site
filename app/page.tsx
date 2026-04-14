@@ -139,47 +139,15 @@ export default function Home() {
         
 
         {/* HERO SECTION */}
-        <section 
-          className="panel h-screen w-full flex items-center justify-center bg-[#f4e4c1] bg-cover bg-center overflow-hidden"
-          style={{ backgroundImage: "url('/paper-texture.jpg')" }}
-        >
-          {/* Vignette effekt a széleken */}
-          <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(59,42,26,0.3)] pointer-events-none" />
+        <section className="panel hero h-screen relative overflow-hidden">
+  
+          <div 
+            className="hero-bg absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+          />
 
-          {/* A fő konténer: mx-auto és w-[92%] biztosítja a szélességet */}
-          <div className="content relative text-center w-[92%] max-w-[500px] mx-auto">
-            
-            {/* Belső kártya: kevesebb px (oldalsó padding), hogy több hely maradjon a szövegnek */}
-            <div className="relative z-10 px-4 py-12 border border-[#d4b896]/30 bg-[#f4e4c1]/40 backdrop-blur-[2px] shadow-2xl">
-              
-              <div className="text-[#8b5e34] text-[10px] tracking-[0.4em] mb-6 uppercase opacity-80">
-                ✧ A Szövetség Megköttetik ✧
-              </div>
-
-              {/* Nevek: whitespace-nowrap megakadályozza a törést, ha nagyon muszáj */}
-              <h1 className="text-5xl font-serif text-[#3b2a1a] mb-2 tracking-tight whitespace-nowrap" style={{ fontFamily: "'Cinzel', serif" }}>
-                Eszti <span className="text-[#8b5e34]">&</span> Peti
-              </h1>
-
-              {/* Díszes elválasztó */}
-              <div className="flex items-center justify-center gap-3 my-8">
-                <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-[#8b5e34]"></div>
-                <div className="rotate-45 w-1.5 h-1.5 bg-[#8b5e34]"></div>
-                <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-[#8b5e34]"></div>
-              </div>
-
-              {/* Dátum: tracking kicsit csökkentve, hogy biztosan kiférjen egy sorba */}
-              <p className="text-xl tracking-[0.15em] font-light text-[#5d4037] uppercase whitespace-nowrap" style={{ fontFamily: "'Cinzel', serif" }}>
-                2026 <span className="text-[#8b5e34] mx-1">.</span> 10 <span className="text-[#8b5e34] mx-1">.</span> 03
-              </p>
-
-              <p className="mt-10 italic text-[#8b5e34] text-base font-serif opacity-90 leading-relaxed">
-                "Nem mindenki téved el, <br/> aki vándorol..."
-              </p>
-            </div>
-
-            {/* Külső finom keret */}
-            <div className="absolute -inset-2 border border-[#d4b896]/20 pointer-events-none" />
+          <div className="hero-title relative z-10 text-center">
+            <h1>Eszti & Peti</h1>
           </div>
         </section>
 
