@@ -170,13 +170,17 @@ export default function Home() {
             {/* A felnyíló fül */}
             <div
               ref={flapRef}
-              className="absolute left-1/2 top-[10px] -translate-x-1/2 w-[398px] h-[470px] z-20 origin-top"
-              style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
+              className="absolute left-1/2 top-[-112px] -translate-x-1/2 w-[330px] h-[1160px] z-20 origin-top"
+              style={{ 
+                transformStyle: "preserve-3d", 
+                backfaceVisibility: "hidden" 
+              }}
             >
               <img
                 src="/envelope-flap.png"
                 alt="Boríték fül"
                 className="w-full h-full object-contain"
+                style={{ display: 'block' }}
               />
             </div>
 
