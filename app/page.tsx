@@ -67,6 +67,8 @@ export default function Home() {
   const sealRef = useRef<HTMLButtonElement>(null);
   const flapRef = useRef<HTMLDivElement>(null);
   const letterRef = useRef<HTMLDivElement>(null);
+  const letterInnerRef = useRef<HTMLDivElement>(null);
+  const letterContentRef = useRef<HTMLDivElement>(null);
   const introTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -81,6 +83,24 @@ export default function Home() {
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    gsap.set(letterRef.current, {
+      y: 90,
+      opacity: 0,
+    });
+
+    gsap.set(letterContentRef.current, {
+      opacity: 0,
+      y: 18,
+    });
+
+    gsap.set(flapRef.current, {
+      rotateX: 0,
+    });
+  }, [isMobile]);
 
   useEffect(() => {
     if (!isOpen || !isMobile) return;
@@ -280,70 +300,90 @@ export default function Home() {
     };
   }, [isOpen, isMobile]);
 
+
+  /* boriték nyitás */
   const handleOpen = () => {
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setIsOpen(true);
-      },
-    });
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setIsOpen(true);
+        },
+      });
 
-    tl.to(sealRef.current, {
-      scale: 1.18,
-      opacity: 0,
-      duration: 0.35,
-      ease: "power2.in",
-    })
-      .to(
-        introTextRef.current,
-        {
-          opacity: 0,
-          y: 10,
-          duration: 0.25,
-          ease: "power2.in",
-        },
-        "<"
-      )
-      .to(
-        flapRef.current,
-        {
-          rotateX: -165,
-          transformOrigin: "top center",
-          duration: 0.95,
-          ease: "power3.inOut",
-        },
-        "+=0.05"
-      )
-      .to(
-        letterRef.current,
-        {
-          y: -145,
-          duration: 1,
-          ease: "power3.out",
-        },
-        "-=0.28"
-      )
-      .to(
-        letterRef.current,
-        {
-          scale: 1.02,
-          duration: 0.25,
-          yoyo: true,
-          repeat: 1,
-          ease: "sine.inOut",
-        },
-        "-=0.2"
-      )
-      .to(
-        introRef.current,
-        {
-          opacity: 0,
-          duration: 0.45,
-          pointerEvents: "none",
-        },
-        "+=0.2"
-      );
-  };
+      tl.to(sealRef.current, {
+        scale: 1.22,
+        opacity: 0,
+        duration: 0.38,
+        ease: "power2.in",
+      })
+        .to(
+          introTextRef.current,
+          {
+            opacity: 0,
+            y: 10,
+            duration: 0.24,
+            ease: "power2.in",
+          },
+          "<"
+        )
+        .to(
+          flapRef.current,
+          {
+            rotateX: -165,
+            transformOrigin: "top center",
+            duration: 0.95,
+            ease: "power3.inOut",
+          },
+          "+=0.05"
+        )
+        .to(
+          letterRef.current,
+          {
+            y: -150,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+          },
+          "-=0.25"
+        )
+        .fromTo(
+          letterInnerRef.current,
+          {
+            scale: 0.96,
+          },
+          {
+            scale: 1,
+            duration: 0.35,
+            ease: "power2.out",
+          },
+          "-=0.45"
+        )
+        .fromTo(
+          letterContentRef.current,
+          {
+            opacity: 0,
+            y: 18,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            ease: "power2.out",
+          },
+          "-=0.35"
+        )
+        .to(
+          introRef.current,
+          {
+            opacity: 0,
+            duration: 0.42,
+            pointerEvents: "none",
+          },
+          "+=0.25"
+        );
+    };
 
+
+  /* ha nem telón van */ 
   if (!isMobile) {
     return (
       <div className="h-screen flex items-center justify-center text-center p-10 bg-[#140d09] text-[#f2dfc2]">
@@ -371,6 +411,7 @@ export default function Home() {
       className="relative overflow-x-hidden bg-[#140d09] text-[#2f1d12]"
       style={{ fontFamily: "'Crimson Text', serif" }}
     >
+      { /* amíg nincs nyitva */ }
       {!isOpen && (
         <div
           ref={introRef}
@@ -379,26 +420,33 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,160,80,0.08),transparent_55%)] pointer-events-none" />
 
           <div className="relative w-[330px] h-[560px] perspective-[1600px]">
+            {/* BORÍTÉK ALAP */}
             <div
               className="absolute inset-0 bg-center bg-cover drop-shadow-[0_30px_55px_rgba(0,0,0,0.45)]"
               style={{ backgroundImage: "url('/envelope-base.png')" }}
             />
 
+            {/* LEVÉL - induláskor rejtve */}
             <div
               ref={letterRef}
-              className="absolute left-1/2 bottom-[102px] -translate-x-1/2 w-[250px] h-[340px] z-10"
+              className="absolute left-1/2 bottom-[96px] -translate-x-1/2 w-[252px] h-[342px] z-10 opacity-0"
             >
               <div
+                ref={letterInnerRef}
                 className="relative w-full h-full bg-center bg-cover bg-no-repeat drop-shadow-[0_12px_24px_rgba(0,0,0,0.28)]"
                 style={{ backgroundImage: "url('/letter-paper.png')" }}
               >
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
+                <div
+                  ref={letterContentRef}
+                  className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center opacity-0"
+                >
                   <p
                     className="text-[#6b472f] text-[14px] mb-4 tracking-[0.2em] uppercase"
                     style={{ fontFamily: "'Cinzel', serif" }}
                   >
                     Meghívó
                   </p>
+
                   <h2
                     className="text-[#3e2517] text-[34px] leading-none"
                     style={{ fontFamily: "'Cinzel', serif" }}
@@ -409,6 +457,7 @@ export default function Home() {
                     <br />
                     Péter
                   </h2>
+
                   <p
                     className="mt-5 text-[#6b472f] text-[16px]"
                     style={{ fontFamily: "'Cinzel', serif" }}
@@ -419,11 +468,13 @@ export default function Home() {
               </div>
             </div>
 
+            {/* FLAP */}
             <div
               ref={flapRef}
               className="absolute left-1/2 top-[112px] -translate-x-1/2 w-[298px] h-[170px] z-20 origin-top"
               style={{
                 transformStyle: "preserve-3d",
+                backfaceVisibility: "hidden",
               }}
             >
               <img
@@ -433,11 +484,12 @@ export default function Home() {
               />
             </div>
 
-            <div className="absolute left-1/2 top-[194px] -translate-x-1/2 z-30 flex flex-col items-center">
+            {/* PECSÉT + SZÖVEG */}
+            <div className="absolute left-1/2 top-[186px] -translate-x-1/2 z-30 flex flex-col items-center">
               <button
                 ref={sealRef}
                 onClick={handleOpen}
-                className="w-28 h-28 active:scale-95 transition-transform drop-shadow-[0_12px_26px_rgba(0,0,0,0.45)]"
+                className="w-32 h-32 active:scale-95 transition-transform drop-shadow-[0_14px_28px_rgba(0,0,0,0.5)]"
                 aria-label="Boríték felnyitása"
               >
                 <img
@@ -449,7 +501,7 @@ export default function Home() {
 
               <div
                 ref={introTextRef}
-                className="mt-8 text-center"
+                className="mt-7 text-center"
               >
                 <p
                   className="text-[#f2dfc2] text-[15px] mb-4 opacity-95"
@@ -470,6 +522,9 @@ export default function Home() {
           </div>
         </div>
       )}
+
+
+
 
       <div className={isOpen ? "opacity-100 transition-opacity duration-1000" : "opacity-0"}>
         <section className="hero-panel relative h-screen w-full overflow-hidden">
