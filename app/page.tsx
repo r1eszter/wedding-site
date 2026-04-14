@@ -6,13 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Marker = {
-  id: string;
-  label: string;
-  top: string;
-  left: string;
-};
-
 type TimelineItem = {
   time: string;
   title: string;
@@ -20,39 +13,61 @@ type TimelineItem = {
   icon: string;
 };
 
-const markers: Marker[] = [
+const timeline: TimelineItem[] = [
   {
-    id: "varoshaza",
-    label: "Miskolci Városháza",
-    top: "38%",
-    left: "35%",
+    time: "13:00",
+    title: "Polgári szertartás",
+    subtitle: "Miskolci Városháza",
+    icon: "💍",
   },
   {
-    id: "boroka",
-    label: "Boróka Tábor",
-    top: "64%",
-    left: "60%",
+    time: "16:00",
+    title: "Vendégváró",
+    subtitle: "Nagyvisnyó",
+    icon: "🍷",
+  },
+  {
+    time: "17:00",
+    title: "Szertartás",
+    subtitle: "A történet folytatódik",
+    icon: "✨",
+  },
+  {
+    time: "18:00",
+    title: "Vacsora",
+    subtitle: "Lakoma",
+    icon: "🍽️",
+  },
+  {
+    time: "19:00",
+    title: "Ajándék / Fotózás",
+    subtitle: "Emlékek és pillanatok",
+    icon: "📷",
+  },
+  {
+    time: "20:00",
+    title: "Ünneplés",
+    subtitle: "Mulatság hajnalig",
+    icon: "🔥",
   },
 ];
 
-const timeline: TimelineItem[] = [
-  { time: "13:00", title: "Polgári szertartás", subtitle: "Miskolci Városháza", icon: "💍" },
-  { time: "16:00", title: "Vendégváró", subtitle: "Nagyvisnyó", icon: "🍷" },
-  { time: "17:00", title: "Szertartás", subtitle: "A történet folytatódik", icon: "✨" },
-  { time: "18:00", title: "Vacsora", subtitle: "Lakoma", icon: "🍽️" },
-  { time: "19:00", title: "Ajándék / Fotózás", subtitle: "Emlékek és pillanatok", icon: "📷" },
-  { time: "20:00", title: "Ünneplés", subtitle: "Mulatság hajnalig", icon: "🔥" },
-];
+const miskolcMapsUrl =
+  "https://www.google.com/maps/search/?api=1&query=Miskolci+V%C3%A1rosh%C3%A1za";
+const borokaMapsUrl =
+  "https://www.google.com/maps/search/?api=1&query=Bor%C3%B3ka+T%C3%A1bor+Nagyvisny%C3%B3";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const sealRef = useRef<HTMLDivElement>(null);
-  const leftPaperRef = useRef<HTMLDivElement>(null);
-  const rightPaperRef = useRef<HTMLDivElement>(null);
+
+  const introRef = useRef<HTMLDivElement>(null);
+  const sealRef = useRef<HTMLButtonElement>(null);
+  const flapRef = useRef<HTMLDivElement>(null);
+  const letterRef = useRef<HTMLDivElement>(null);
+  const introTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -70,61 +85,28 @@ export default function Home() {
   useEffect(() => {
     if (!isOpen || !isMobile) return;
 
-    ScrollTrigger.getAll().forEach((t) => t.kill());
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
     const ctx = gsap.context(() => {
-      const panels = gsap.utils.toArray<HTMLElement>(".panel");
-
-      panels.forEach((panel) => {
-        ScrollTrigger.create({
-          trigger: panel,
-          start: "top top",
-          end: "+=100%",
-          pin: true,
-          pinSpacing: false,
-          scrub: true,
-        });
-
-        const content = panel.querySelector(".content");
-        if (content) {
-          gsap.fromTo(
-            content,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: panel,
-                start: "top 70%",
-                end: "top 20%",
-                scrub: true,
-              },
-            }
-          );
-        }
-      });
-
       gsap.fromTo(
         ".hero-card",
-        { opacity: 0, scale: 0.96, y: 30 },
+        { opacity: 0, y: 42, scale: 0.96 },
         {
           opacity: 1,
-          scale: 1,
           y: 0,
-          duration: 1.2,
+          scale: 1,
+          duration: 1.15,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".hero-panel",
-            start: "top 80%",
+            start: "top 75%",
           },
         }
       );
 
       gsap.to(".hero-bg", {
         scale: 1.08,
-        yPercent: 8,
+        yPercent: 7,
         ease: "none",
         scrollTrigger: {
           trigger: ".hero-panel",
@@ -134,54 +116,97 @@ export default function Home() {
         },
       });
 
-      gsap.utils.toArray<HTMLElement>(".story-line").forEach((line, i) => {
-        gsap.fromTo(
-          line,
-          { opacity: 0, y: 24, filter: "blur(6px)" },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 1,
-            delay: i * 0.08,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ".story-panel",
-              start: "top 65%",
-            },
-          }
-        );
+      ScrollTrigger.create({
+        trigger: ".hero-panel",
+        start: "top top",
+        end: "+=100%",
+        pin: true,
+        pinSpacing: false,
+        scrub: true,
       });
 
       gsap.fromTo(
         ".map-card",
-        { opacity: 0, y: 40, scale: 0.98 },
+        { opacity: 0, y: 36, scale: 0.98 },
         {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 1.2,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".map-panel",
-            start: "top 70%",
+            start: "top 72%",
           },
         }
       );
 
+      ScrollTrigger.create({
+        trigger: ".map-panel",
+        start: "top top",
+        end: "+=100%",
+        pin: true,
+        pinSpacing: false,
+        scrub: true,
+      });
+
+      gsap.to(".map-bg", {
+        scale: 1.05,
+        yPercent: 4,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".map-panel",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
       gsap.fromTo(
-        ".map-marker",
-        { opacity: 0, scale: 0, y: 10 },
+        ".floating-place",
+        { opacity: 0, y: 20, scale: 0.92 },
         {
           opacity: 1,
-          scale: 1,
           y: 0,
-          stagger: 0.25,
-          duration: 0.6,
-          ease: "back.out(1.7)",
+          scale: 1,
+          stagger: 0.18,
+          duration: 0.85,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: ".map-panel",
-            start: "top 55%",
+            start: "top 60%",
+          },
+        }
+      );
+
+      gsap.to(".float-miskolc", {
+        y: -12,
+        repeat: -1,
+        yoyo: true,
+        duration: 2.6,
+        ease: "sine.inOut",
+      });
+
+      gsap.to(".float-boroka", {
+        y: -14,
+        repeat: -1,
+        yoyo: true,
+        duration: 3,
+        ease: "sine.inOut",
+      });
+
+      gsap.fromTo(
+        ".quest-title",
+        { opacity: 0, y: 28, filter: "blur(4px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.95,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".quest-panel",
+            start: "top 82%",
           },
         }
       );
@@ -191,8 +216,8 @@ export default function Home() {
           item,
           {
             opacity: 0.35,
-            y: 30,
-            boxShadow: "0 0 0 rgba(255,180,80,0)",
+            y: 26,
+            boxShadow: "0 0 0 rgba(255,160,60,0)",
           },
           {
             opacity: 1,
@@ -202,30 +227,46 @@ export default function Home() {
             ease: "power2.out",
             scrollTrigger: {
               trigger: item,
-              start: "top 80%",
-              end: "top 45%",
+              start: "top 88%",
+              end: "top 52%",
               scrub: true,
             },
           }
         );
       });
 
-      gsap.to(".embers", {
-        yPercent: -10,
+      gsap.fromTo(
+        ".rsvp-card",
+        { opacity: 0, y: 44, scale: 0.97 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.05,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".rsvp-card",
+            start: "top 88%",
+          },
+        }
+      );
+
+      gsap.to(".quest-bg", {
+        yPercent: 8,
         ease: "none",
         scrollTrigger: {
-          trigger: ".story-panel",
+          trigger: ".quest-panel",
           start: "top bottom",
           end: "bottom top",
           scrub: true,
         },
       });
 
-      gsap.to(".fog-layer", {
-        yPercent: 12,
+      gsap.to(".quest-glow", {
+        yPercent: -10,
         ease: "none",
         scrollTrigger: {
-          trigger: ".story-panel",
+          trigger: ".quest-panel",
           start: "top bottom",
           end: "bottom top",
           scrub: true,
@@ -235,47 +276,71 @@ export default function Home() {
 
     return () => {
       ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, [isOpen, isMobile]);
 
   const handleOpen = () => {
     const tl = gsap.timeline({
-      onComplete: () => setIsOpen(true),
+      onComplete: () => {
+        setIsOpen(true);
+      },
     });
 
     tl.to(sealRef.current, {
-      scale: 1.35,
+      scale: 1.18,
       opacity: 0,
-      duration: 0.45,
-      ease: "back.in(1.8)",
+      duration: 0.35,
+      ease: "power2.in",
     })
       .to(
-        leftPaperRef.current,
+        introTextRef.current,
         {
-          xPercent: -100,
-          duration: 1.15,
-          ease: "power3.inOut",
-        },
-        "-=0.05"
-      )
-      .to(
-        rightPaperRef.current,
-        {
-          xPercent: 100,
-          duration: 1.15,
-          ease: "power3.inOut",
+          opacity: 0,
+          y: 10,
+          duration: 0.25,
+          ease: "power2.in",
         },
         "<"
       )
       .to(
-        wrapperRef.current,
+        flapRef.current,
+        {
+          rotateX: -165,
+          transformOrigin: "top center",
+          duration: 0.95,
+          ease: "power3.inOut",
+        },
+        "+=0.05"
+      )
+      .to(
+        letterRef.current,
+        {
+          y: -145,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.28"
+      )
+      .to(
+        letterRef.current,
+        {
+          scale: 1.02,
+          duration: 0.25,
+          yoyo: true,
+          repeat: 1,
+          ease: "sine.inOut",
+        },
+        "-=0.2"
+      )
+      .to(
+        introRef.current,
         {
           opacity: 0,
-          duration: 0.35,
+          duration: 0.45,
           pointerEvents: "none",
         },
-        "-=0.25"
+        "+=0.2"
       );
   };
 
@@ -308,55 +373,106 @@ export default function Home() {
     >
       {!isOpen && (
         <div
-          ref={wrapperRef}
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#140d09]"
+          ref={introRef}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#140d09] overflow-hidden"
         >
-          <div
-            ref={leftPaperRef}
-            className="absolute inset-y-0 left-0 w-1/2 bg-cover bg-center shadow-2xl border-r border-[#7d5937]/40"
-            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
-          />
-          <div
-            ref={rightPaperRef}
-            className="absolute inset-y-0 right-0 w-1/2 bg-cover bg-center shadow-2xl border-l border-[#7d5937]/40"
-            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
-          />
-
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,160,80,0.08),transparent_55%)] pointer-events-none" />
 
-          <div className="z-20 flex flex-col items-center px-6 text-center">
-            <p
-              className="text-[#f2dfc2] text-[15px] mb-8 opacity-90"
-              style={{ fontFamily: "'Cinzel', serif" }}
-            >
-              Egy üzenet vár rád...
-            </p>
+          <div className="relative w-[330px] h-[560px] perspective-[1600px]">
+            <div
+              className="absolute inset-0 bg-center bg-cover drop-shadow-[0_30px_55px_rgba(0,0,0,0.45)]"
+              style={{ backgroundImage: "url('/envelope-base.png')" }}
+            />
 
             <div
-              ref={sealRef}
-              onClick={handleOpen}
-              className="w-36 h-36 cursor-pointer active:scale-95 transition-transform drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)]"
+              ref={letterRef}
+              className="absolute left-1/2 bottom-[102px] -translate-x-1/2 w-[250px] h-[340px] z-10"
+            >
+              <div
+                className="relative w-full h-full bg-center bg-cover bg-no-repeat drop-shadow-[0_12px_24px_rgba(0,0,0,0.28)]"
+                style={{ backgroundImage: "url('/letter-paper.png')" }}
+              >
+                <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
+                  <p
+                    className="text-[#6b472f] text-[14px] mb-4 tracking-[0.2em] uppercase"
+                    style={{ fontFamily: "'Cinzel', serif" }}
+                  >
+                    Meghívó
+                  </p>
+                  <h2
+                    className="text-[#3e2517] text-[34px] leading-none"
+                    style={{ fontFamily: "'Cinzel', serif" }}
+                  >
+                    Eszter
+                    <br />
+                    &amp;
+                    <br />
+                    Péter
+                  </h2>
+                  <p
+                    className="mt-5 text-[#6b472f] text-[16px]"
+                    style={{ fontFamily: "'Cinzel', serif" }}
+                  >
+                    2026.10.03
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              ref={flapRef}
+              className="absolute left-1/2 top-[112px] -translate-x-1/2 w-[298px] h-[170px] z-20 origin-top"
+              style={{
+                transformStyle: "preserve-3d",
+              }}
             >
               <img
-                src="/seal.png"
-                alt="Pecsét"
-                className="w-full h-full object-contain"
+                src="/envelope-flap.png"
+                alt="Boríték fedél"
+                className="w-full h-full object-contain pointer-events-none select-none"
               />
             </div>
 
-            <button
-              onClick={handleOpen}
-              className="mt-8 px-6 py-3 text-[#f6e6cb] border border-[#8d6039] bg-[#3a2417]/80 rounded-sm tracking-wide shadow-lg"
-              style={{ fontFamily: "'Cinzel', serif" }}
-            >
-              Törd meg a pecsétet
-            </button>
+            <div className="absolute left-1/2 top-[194px] -translate-x-1/2 z-30 flex flex-col items-center">
+              <button
+                ref={sealRef}
+                onClick={handleOpen}
+                className="w-28 h-28 active:scale-95 transition-transform drop-shadow-[0_12px_26px_rgba(0,0,0,0.45)]"
+                aria-label="Boríték felnyitása"
+              >
+                <img
+                  src="/seal.png"
+                  alt="Pecsét"
+                  className="w-full h-full object-contain"
+                />
+              </button>
+
+              <div
+                ref={introTextRef}
+                className="mt-8 text-center"
+              >
+                <p
+                  className="text-[#f2dfc2] text-[15px] mb-4 opacity-95"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  Egy üzenet vár rád...
+                </p>
+
+                <button
+                  onClick={handleOpen}
+                  className="px-5 py-3 text-[#f6e6cb] border border-[#8d6039] bg-[#3a2417]/85 rounded-sm tracking-wide shadow-lg"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  Törd meg a pecsétet
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
       <div className={isOpen ? "opacity-100 transition-opacity duration-1000" : "opacity-0"}>
-        <section className="panel hero-panel relative h-screen w-full overflow-hidden">
+        <section className="hero-panel relative h-screen w-full overflow-hidden">
           <div
             className="hero-bg absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url('/paper-texture.jpg')" }}
@@ -364,7 +480,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(20,13,9,0.65),rgba(20,13,9,0.15),rgba(20,13,9,0.75))]" />
           <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.45)]" />
 
-          <div className="content relative z-10 h-full flex items-center justify-center px-5">
+          <div className="relative z-10 h-full flex items-center justify-center px-5">
             <div className="hero-card relative w-full max-w-[360px] mx-auto text-center">
               <div className="absolute -inset-3 border border-[#87613f]/25 pointer-events-none" />
 
@@ -416,46 +532,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="panel story-panel relative h-screen w-full overflow-hidden">
+        <section className="map-panel relative h-screen w-full overflow-hidden">
           <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/story-landscape.jpg')" }}
-          />
-          <div className="fog-layer absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,244,220,0.16),rgba(255,244,220,0.03),rgba(20,13,9,0.35))]" />
-          <div className="embers absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,168,90,0.12),transparent_18%),radial-gradient(circle_at_75%_30%,rgba(255,168,90,0.08),transparent_16%),radial-gradient(circle_at_50%_80%,rgba(255,168,90,0.09),transparent_15%)]" />
-          <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.42)]" />
-
-          <div className="content relative z-10 h-full flex items-center justify-center px-8">
-            <div className="text-center max-w-[320px]">
-              <p
-                className="story-line text-[#f8e8cd] text-[18px] mb-6 italic"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
-                Két út találkozott...
-              </p>
-              <p className="story-line text-[#f8ead6] text-[28px] leading-snug mb-6">
-                Egy közös történet
-                <br />
-                kezdődött...
-              </p>
-              <p className="story-line text-[#ecd6ba] text-base leading-relaxed opacity-90">
-                Egy új fejezet nyílik meg egy világban,
-                ahol a szeretet erősebb minden varázslatnál.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="panel map-panel relative h-screen w-full overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="map-bg absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url('/map.jpg')" }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(20,13,9,0.18),rgba(20,13,9,0.28),rgba(20,13,9,0.42))]" />
           <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.36)]" />
 
-          <div className="content relative z-10 h-full flex items-center justify-center px-4">
-            <div className="map-card relative w-full max-w-[360px] rounded-sm border border-[#7d5a39]/30 bg-[#ead5b3]/72 backdrop-blur-[1px] px-5 py-6 shadow-[0_18px_40px_rgba(0,0,0,0.28)]">
+          <div className="relative z-10 h-full flex items-center justify-center px-4">
+            <div className="map-card relative w-full max-w-[365px] rounded-sm border border-[#7d5a39]/30 bg-[#ead5b3]/72 backdrop-blur-[1px] px-4 py-5 shadow-[0_18px_40px_rgba(0,0,0,0.28)]">
               <h2
                 className="text-center text-[#4a2f1d] text-[28px] mb-4"
                 style={{ fontFamily: "'Cinzel', serif" }}
@@ -463,52 +549,61 @@ export default function Home() {
                 A Térkép
               </h2>
 
-              <div className="relative h-[420px] rounded-sm overflow-hidden border border-[#8b633d]/25 bg-[#d8bc92]/35">
+              <div className="relative h-[430px] rounded-sm overflow-hidden border border-[#8b633d]/25 bg-[#d8bc92]/35">
                 <img
                   src="/map.jpg"
                   alt="Térkép"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
 
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,240,215,0.08),transparent,rgba(20,13,9,0.1))]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,240,215,0.06),transparent,rgba(20,13,9,0.1))]" />
 
-                {markers.map((marker) => (
-                  <div
-                    key={marker.id}
-                    className="map-marker absolute"
-                    style={{ top: marker.top, left: marker.left }}
-                  >
-                    <div className="relative -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-5 h-5 rounded-full bg-[#9e3d22] border-2 border-[#f7d7ae] shadow-[0_0_18px_rgba(255,135,60,0.55)]" />
-                      <div className="absolute top-6 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 text-[12px] text-[#3c2416] bg-[#f3dfc0] border border-[#8b633d]/30 shadow-md">
-                        {marker.label}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                <a
+                  href={miskolcMapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="floating-place float-miskolc absolute block w-[160px] left-[18px] top-[82px] active:scale-95 transition-transform"
+                >
+                  <img
+                    src="/miskolc.jpg"
+                    alt="Miskolci Városháza"
+                    className="w-full h-auto object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)]"
+                  />
+                </a>
+
+                <a
+                  href={borokaMapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="floating-place float-boroka absolute block w-[148px] right-[18px] top-[222px] active:scale-95 transition-transform"
+                >
+                  <img
+                    src="/boroka.jpg"
+                    alt="Boróka Tábor"
+                    className="w-full h-auto object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)]"
+                  />
+                </a>
               </div>
 
               <p className="mt-4 text-center text-[#5b3a25] text-sm leading-relaxed">
-                Polgári: Miskolci Városháza
-                <br />
-                Ünneplés: Boróka Tábor, Nagyvisnyó
+                Érintsd meg a helyszíneket a pontos útvonalhoz.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="panel timeline-panel relative h-screen w-full overflow-hidden bg-[#1d120c]">
+        <section className="quest-panel relative min-h-[175vh] w-full overflow-hidden">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-20"
-            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+            className="quest-bg absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/story-landscape.jpg')" }}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,180,90,0.08),transparent_45%)]" />
-          <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.5)]" />
+          <div className="quest-glow absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,180,90,0.10),transparent_35%),linear-gradient(to_bottom,rgba(20,13,9,0.28),rgba(20,13,9,0.42),rgba(20,13,9,0.72))]" />
+          <div className="absolute inset-0 shadow-[inset_0_0_160px_rgba(0,0,0,0.45)]" />
 
-          <div className="content relative z-10 h-full flex items-center justify-center px-5">
-            <div className="w-full max-w-[360px]">
+          <div className="relative z-10 px-5 pt-20 pb-20">
+            <div className="max-w-[360px] mx-auto">
               <h2
-                className="text-center text-[#f2dfc1] text-[30px] mb-6"
+                className="quest-title text-center text-[#f6e5ca] text-[30px] mb-8"
                 style={{ fontFamily: "'Cinzel', serif" }}
               >
                 A Küldetés Menete
@@ -521,7 +616,7 @@ export default function Home() {
                   {timeline.map((item, index) => (
                     <div
                       key={`${item.time}-${index}`}
-                      className="timeline-item relative rounded-sm border border-[#8a603b]/30 bg-[#f2dec0]/9 backdrop-blur-[1px] px-4 py-4 ml-4"
+                      className="timeline-item relative rounded-sm border border-[#8a603b]/30 bg-[#1f140d]/50 backdrop-blur-[1px] px-4 py-4 ml-4"
                     >
                       <div className="absolute -left-[18px] top-6 w-3 h-3 rounded-full bg-[#f3c188] border border-[#f8e3c2] shadow-[0_0_16px_rgba(255,168,90,0.45)]" />
                       <div className="flex gap-3">
@@ -548,44 +643,35 @@ export default function Home() {
                 </div>
               </div>
 
-              <p className="text-center text-[#d8b48b] text-sm mt-6 tracking-wide">
+              <p className="text-center text-[#ecd0ac] text-sm mt-7 tracking-wide">
                 Visszajelzés határideje: 2026.08.15
               </p>
-            </div>
-          </div>
-        </section>
 
-        <section className="panel rsvp-panel relative h-screen w-full overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/envelope-bg.jpg')" }}
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(20,13,9,0.58),rgba(20,13,9,0.25),rgba(20,13,9,0.74))]" />
-          <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.5)]" />
+              <div className="h-20" />
 
-          <div className="content relative z-10 h-full flex items-center justify-center px-5">
-            <div className="w-full max-w-[350px] text-center border border-[#8b633d]/30 bg-[#eed9ba]/78 px-6 py-10 shadow-[0_18px_45px_rgba(0,0,0,0.35)]">
-              <h2
-                className="text-[#402719] text-[30px] mb-5"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
-                Válaszolj a hívásra
-              </h2>
+              <div className="rsvp-card w-full text-center border border-[#8b633d]/30 bg-[#eed9ba]/78 px-6 py-10 shadow-[0_18px_45px_rgba(0,0,0,0.35)]">
+                <h2
+                  className="text-[#402719] text-[30px] mb-5"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  Válaszolj a hívásra
+                </h2>
 
-              <p className="text-[#68452d] leading-relaxed mb-8 text-base">
-                Ha velünk tartanátok ezen a közös kalandon, kérlek jelezzetek vissza időben.
-              </p>
+                <p className="text-[#68452d] leading-relaxed mb-8 text-base">
+                  Ha velünk tartanátok ezen a közös kalandon, kérlek jelezzetek vissza időben.
+                </p>
 
-              <button
-                className="px-8 py-3 bg-[#4a2d1c] text-[#f5e4ca] border border-[#8d633c] shadow-lg tracking-wide"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
-                Visszajelzés
-              </button>
+                <button
+                  className="px-8 py-3 bg-[#4a2d1c] text-[#f5e4ca] border border-[#8d633c] shadow-lg tracking-wide"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  Visszajelzés
+                </button>
 
-              <p className="mt-6 text-[#795338] text-sm opacity-90">
-                Jelenlétetek a legnagyobb ajándék számunkra.
-              </p>
+                <p className="mt-6 text-[#795338] text-sm opacity-90">
+                  Jelenlétetek a legnagyobb ajándék számunkra.
+                </p>
+              </div>
             </div>
           </div>
         </section>
