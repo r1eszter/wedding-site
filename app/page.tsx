@@ -173,19 +173,18 @@ export default function Home() {
                 className="absolute inset-0 bg-cover bg-center brightness-[0.7] sepia-[0.15]"
                 style={{ backgroundImage: "url('/paper-texture.jpg')" }}
               />
-              
             </div>
 
             {/* Meghívó panel */}
             <div className="relative z-10 w-full max-w-[370px]">
 
               <div
-                className="relative overflow-hidden rounded-[3px] px-7 pt-12 pb-12 text-center shadow-[0_26px_55px_rgba(0,0,0,0.42)]"
+                className="relative overflow-hidden rounded-[3px] px-7 pt-12 pb-12 text-center"
               >
 
                 {/* mini heading */}
                 <p
-                  className="text-[10px] tracking-[0.34em] uppercase text-[#7b5537] opacity-75 mb-8"
+                  className="text-[10px] tracking-[0.34em] uppercase text-[#422e1d] opacity-75 mb-8"
                   style={{ fontFamily: "'Cinzel', serif" }}
                 >
                   ✧ A Szövetség Megköttetik ✧
@@ -193,7 +192,7 @@ export default function Home() {
 
                 {/* fő név */}
                 <h1
-                  className="text-[42px] leading-[1.02] text-[#3a2416] mb-6"
+                  className="text-[42px] leading-[1.02] text-[#422e1d] mb-6"
                   style={{ fontFamily: "'Cinzel', serif" }}
                 >
                   Eszter & Péter
@@ -201,9 +200,9 @@ export default function Home() {
 
                 {/* díszítő sor */}
                 <div className="flex items-center justify-center gap-3 mb-7">
-                  <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#8b5d37]/70" />
-                  <div className="w-[6px] h-[6px] rotate-45 border border-[#8b5d37]/70" />
-                  <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#8b5d37]/70" />
+                  <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#241a11]/70" />
+                  <div className="w-[6px] h-[6px] rotate-45 border border-[#241a11]/70" />
+                  <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#241a11]/70" />
                 </div>
 
                 {/* dátum */}
@@ -216,20 +215,20 @@ export default function Home() {
 
                 {/* második díszítő sor */}
                 <div className="flex items-center justify-center gap-3 mb-8">
-                  <div className="h-[1px] w-10 bg-[#8b5d37]/28" />
-                  <div className="text-[#8b5d37]/55 text-[11px]">✦</div>
-                  <div className="h-[1px] w-10 bg-[#8b5d37]/28" />
+                  <div className="h-[1px] w-10 bg-[#241a11]/28" />
+                  <div className="text-[#241a11]/55 text-[11px]">✦</div>
+                  <div className="h-[1px] w-10 bg-[#241a11]/28" />
                 </div>
 
                 {/* idézet */}
-                <div className="text-[#6a4730] italic text-[17px] leading-[1.9]">
+                <div className="text-[#36281d] italic text-[17px] leading-[1.9]">
                   <p>„Két út találkozott...”</p>
                   <p>„Egy közös történet kezdődött...”</p>
                 </div>
 
                 {/* scroll hint */}
                 <div
-                  className="mt-10 text-[13px] tracking-[0.18em] text-[#7a5434] opacity-80"
+                  className="mt-10 text-[13px] tracking-[0.18em] text-[#4a3626] opacity-80"
                   style={{ fontFamily: "'Cinzel', serif" }}
                 >
                   -- Görgess tovább --
