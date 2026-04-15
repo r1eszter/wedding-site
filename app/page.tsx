@@ -268,28 +268,16 @@ export default function Home() {
 
                   <a
                     href={miskolcMapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="floating-place float-miskolc absolute block w-[160px] left-[18px] top-[82px] active:scale-95 transition-transform"
+                    className="floating-place float-miskolc animate-float absolute block w-[160px] left-[18px] top-[140px] active:scale-95 transition-transform"
                   >
-                    <img
-                      src="/miskolc.jpg"
-                      alt="Miskolci Városháza"
-                      className="w-full h-auto object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)]"
-                    />
+                    <img src="/miskolc.jpg" alt="Miskolci Városháza" className="w-full h-auto object-contain drop-shadow-[0_15px_20px_rgba(0,0,0,0.45)]" />
                   </a>
 
                   <a
                     href={borokaMapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="floating-place float-boroka absolute block w-[148px] right-[18px] top-[222px] active:scale-95 transition-transform"
+                    className="floating-place float-boroka animate-float-delayed absolute block w-[148px] right-[18px] top-[270px] active:scale-95 transition-transform"
                   >
-                    <img
-                      src="/boroka.jpg"
-                      alt="Boróka Tábor"
-                      className="w-full h-auto object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)]"
-                    />
+                    <img src="/boroka.jpg" alt="Boróka Tábor" className="w-full h-auto object-contain drop-shadow-[0_15px_20px_rgba(0,0,0,0.45)]" />
                   </a>
                 </div>
 
@@ -300,6 +288,8 @@ export default function Home() {
             </div>
           </section>
           
+
+
           {/* MENETREND SZEKCIÓ (Az eredeti kódból maradt) */}
           <section className="quest-panel relative min-h-[175vh] w-full overflow-hidden">
             <div
