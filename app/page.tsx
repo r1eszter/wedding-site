@@ -115,7 +115,6 @@ export default function Home() {
             className="relative w-1/2 h-full bg-cover bg-center pointer-events-auto"
             style={{ 
               backgroundImage: "url('/intro.png')",
-              boxShadow: "inset -20px 0 30px -10px rgba(37, 36, 36, 0.5)" // Belső árnyék az élnek
             }}
           >
             {/* Sötétítő réteg a széleken */}
@@ -129,7 +128,6 @@ export default function Home() {
             className="relative w-1/2 h-full bg-cover bg-center pointer-events-auto"
             style={{ 
               backgroundImage: "url('/intro.png')",
-              boxShadow: "inset 20px 0 30px -10px rgba(37, 36, 36, 0.5)" // Belső árnyék az élnek
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-transparent to-transparent" />
