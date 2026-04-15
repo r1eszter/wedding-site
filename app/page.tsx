@@ -275,7 +275,7 @@ export default function Home() {
 
                   <a
                     href={borokaMapsUrl}
-                    className="floating-place float-boroka animate-float-delayed absolute block w-[148px] right-[18px] top-[270px] active:scale-95 transition-transform"
+                    className="floating-place float-boroka animate-float-delayed absolute block w-[148px] right-[18px] top-[260px] active:scale-95 transition-transform"
                   >
                     <img src="/boroka.jpg" alt="Boróka Tábor" className="w-full h-auto object-contain drop-shadow-[0_15px_20px_rgba(0,0,0,0.45)]" />
                   </a>
