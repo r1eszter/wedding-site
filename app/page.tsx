@@ -114,7 +114,7 @@ export default function Home() {
             ref={leftPartRef}
             className="relative w-1/2 h-full bg-cover bg-center pointer-events-auto"
             style={{ 
-              backgroundImage: "url('/intro.jpg')",
+              backgroundImage: "url('/intro.png')",
               boxShadow: "inset -20px 0 30px -10px rgba(0,0,0,0.5)" // Belső árnyék az élnek
             }}
           >
@@ -128,7 +128,7 @@ export default function Home() {
             ref={rightPartRef}
             className="relative w-1/2 h-full bg-cover bg-center pointer-events-auto"
             style={{ 
-              backgroundImage: "url('/intro.jpg')",
+              backgroundImage: "url('/intro.png')",
               boxShadow: "inset 20px 0 30px -10px rgba(0,0,0,0.5)" // Belső árnyék az élnek
             }}
           >
