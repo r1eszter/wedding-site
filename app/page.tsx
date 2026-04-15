@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- ADATOK ÉS KONSTANSOK ---
+// --- ADATOK ---
 type TimelineItem = {
   time: string;
   title: string;
@@ -27,19 +27,19 @@ const miskolcMapsUrl = "https://www.google.com/maps/search/?api=1&query=Miskolci
 const borokaMapsUrl = "https://www.google.com/maps/search/?api=1&query=Bor%C3%B3ka+T%C3%A1bor+Nagyvisny%C3%B3";
 
 export default function Home() {
-  // --- STATE-EK (Állapotkezelés) ---
-  const [isOpen, setIsOpen] = useState(false); // A boríték nyitási folyamatának állapota
-  const [showMainContent, setShowMainContent] = useState(false); // A fő weboldal láthatósága
+  // --- ÁLLAPOTOK ---
+  const [isOpen, setIsOpen] = useState(false);
+  const [showMainContent, setShowMainContent] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
 
-  // --- REF-EK (DOM elemek elérése animációhoz) ---
+  // --- REF-EK ---
   const containerRef = useRef<HTMLDivElement>(null);
-  const introRef = useRef<HTMLDivElement>(null); // A teljes bevezető (borítékos) rész
-  const sealRef = useRef<HTMLButtonElement>(null); // A pecsét gomb
-  const flapRef = useRef<HTMLDivElement>(null); // A boríték felnyíló füle
-  const introTextRef = useRef<HTMLDivElement>(null); // A "Törd meg a pecsétet" szöveg
+  const leftPartRef = useRef<HTMLDivElement>(null); // Bal oldali boríték fél
+  const rightPartRef = useRef<HTMLDivElement>(null); // Jobb oldali boríték fél
+  const sealRef = useRef<HTMLButtonElement>(null);
+  const introTextRef = useRef<HTMLDivElement>(null);
 
-  // --- MOBIL ELLENŐRZÉS ---
+  // Mobil ellenőrzés
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
@@ -47,61 +47,7 @@ export default function Home() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // --- INICIALIZÁLÁS (Kezdő pozíciók beállítása) ---
-  useEffect(() => {
-    if (!isMobile) return;
-
-    gsap.set(flapRef.current, { rotateX: 0 }); // A fül alaphelyzetben zárt
-    gsap.set(introTextRef.current, { opacity: 1, y: 0 });
-    gsap.set(sealRef.current, { opacity: 1, scale: 1 });
-  }, [isMobile]);
-
-  // --- FŐ TARTALOM ANIMÁCIÓI (ScrollTrigger) ---
-  useEffect(() => {
-    if (!showMainContent || !isMobile) return;
-
-    const ctx = gsap.context(() => {
-      // Hero szekció kártya megjelenése
-      gsap.fromTo(
-        ".hero-card",
-        { opacity: 0, y: 42, scale: 0.96 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.15,
-          ease: "power3.out",
-          scrollTrigger: { trigger: ".hero-panel", start: "top 75%" },
-        }
-      );
-
-      // Parallax effekt a háttérnek
-      gsap.to(".hero-bg", {
-        scale: 1.08,
-        yPercent: 7,
-        ease: "none",
-        scrollTrigger: { trigger: ".hero-panel", start: "top top", end: "bottom top", scrub: true },
-      });
-
-      // Szekció rögzítése (Pinning)
-      ScrollTrigger.create({
-        trigger: ".hero-panel",
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: false,
-        scrub: true,
-      });
-
-      // Térkép és eseménylista animációi (hasonló logikával...)
-      // [A többi ScrollTrigger kód változatlan marad az átláthatóság kedvéért]
-      
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [showMainContent, isMobile]);
-
-  // --- NYITÁSI ANIMÁCIÓ (Handle Open) ---
+  // --- NYITÁSI ANIMÁCIÓ ---
   const handleOpen = () => {
     const tl = gsap.timeline({
       onComplete: () => {
@@ -110,138 +56,120 @@ export default function Home() {
       },
     });
 
-    // 1. Pecsét és szöveg eltüntetése
+    // 1. Pecsét és szöveg eltűnik
     tl.to([sealRef.current, introTextRef.current], {
       opacity: 0,
-      scale: 1.1,
+      scale: 0.8,
       duration: 0.4,
       ease: "power2.in",
     })
-    // 2. Boríték fülének felnyitása
-    .to(flapRef.current, {
-      rotateX: -170, // Szinte teljesen hátrahajlik
-      transformOrigin: "top center",
-      duration: 0.8,
-      ease: "power3.inOut",
-    }, "-=0.1")
-    // 3. A teljes intro rész elhalványítása, hogy átlássunk a Hero-ra
-    .to(introRef.current, {
-      opacity: 0,
-      duration: 0.6,
-      ease: "power1.inOut",
-    }, "+=0.2");
+    // 2. A két oldal szétcsúszik balra és jobbra
+    .to(leftPartRef.current, {
+      xPercent: -100,
+      duration: 1,
+      ease: "power3.inOut"
+    })
+    .to(rightPartRef.current, {
+      xPercent: 100,
+      duration: 1,
+      ease: "power3.inOut"
+    }, "<"); // A két mozgás egyszerre történik
   };
 
-  // --- ASZTALI NÉZET (Tiltás) ---
+  // --- GÖRDÜLÉSI ANIMÁCIÓK (ScrollTrigger) ---
+  useEffect(() => {
+    if (!showMainContent || !isMobile) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(".hero-card", 
+        { opacity: 0, y: 50 }, 
+        { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: ".hero-panel", start: "top 80%" } }
+      );
+      // Itt tarthatod a többi szekció (map, timeline) animációját...
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [showMainContent, isMobile]);
+
   if (!isMobile) {
     return (
-      <div className="h-screen flex items-center justify-center text-center p-10 bg-[#140d09] text-[#f2dfc2]">
-        <div className="max-w-sm">
+      <div className="h-screen flex items-center justify-center bg-[#140d09] text-[#f2dfc2] p-10 text-center">
+        <div>
           <h1 className="text-2xl mb-4" style={{ fontFamily: "'Cinzel', serif" }}>Ez a meghívó telefonra készült</h1>
-          <p className="text-sm opacity-80">Kérlek, mobiltelefonon nyisd meg a teljes élményhez. 📱</p>
+          <p className="opacity-80">Kérlek, mobiltelefonon nyisd meg! 📱</p>
         </div>
       </div>
     );
   }
 
   return (
-    <main
-      ref={containerRef}
-      className="relative overflow-x-hidden bg-[#140d09] text-[#2f1d12]"
-      style={{ fontFamily: "'Crimson Text', serif" }}
-    >
-      {/* --- BEVEZETŐ RÉSZ (BORÍTÉK) --- */}
+    <main ref={containerRef} className="relative overflow-x-hidden bg-[#140d09]">
+      
+      {/* --- INTRO RÉTEG (Boríték szétnyílása) --- */}
       {!isOpen && (
-        <div
-          ref={introRef}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#140d09] overflow-hidden"
-        >
-          {/* Háttér fényeffekt */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,160,80,0.08),transparent_55%)] pointer-events-none" />
+        <div className="fixed inset-0 z-[100] flex overflow-hidden pointer-events-none">
+          
+          {/* Bal fél */}
+          <div 
+            ref={leftPartRef}
+            className="relative w-1/2 h-full bg-cover bg-center border-r border-[#8b633d]/20 pointer-events-auto"
+            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+          >
+            {/* Árnyék az illesztésnél */}
+            <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/20 to-transparent" />
+          </div>
 
-          <div className="relative w-[330px] h-[560px]" style={{ perspective: "1600px" }}>
-            
-            {/* Boríték alja/teste */}
-            <div
-              className="absolute inset-0 bg-center bg-cover drop-shadow-[0_30px_55px_rgba(0,0,0,0.45)]"
-              style={{ backgroundImage: "url('/envelope-base.png')" }}
-            />
+          {/* Jobb fél */}
+          <div 
+            ref={rightPartRef}
+            className="relative w-1/2 h-full bg-cover bg-center border-l border-[#8b633d]/20 pointer-events-auto"
+            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+          >
+            <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/20 to-transparent" />
+          </div>
 
-            {/* A felnyíló fül */}
-            <div
-              ref={flapRef}
-              className="absolute left-1/2 top-[-1800px] -translate-x-1/2 w-[330px] h-[560px] z-20 origin-top"
-              style={{ 
-                transformStyle: "preserve-3d", 
-                backfaceVisibility: "hidden" 
-              }}
+          {/* Középső tartalom (Pecsét és felirat) */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <button
+              ref={sealRef}
+              onClick={handleOpen}
+              className="w-44 h-44 active:scale-95 transition-transform drop-shadow-2xl pointer-events-auto"
             >
-              <img
-                src="/envelope-flap.png"
-                alt="Boríték fül"
-                className="w-full h-full object-contain"
-                style={{ display: 'block' }}
-              />
-            </div>
+              <img src="/seal.png" alt="Pecsét" className="w-full h-full object-contain" />
+            </button>
 
-            {/* Pecsét és feliratok rétege */}
-            <div className="absolute left-1/2 top-[186px] -translate-x-1/2 z-30 flex flex-col items-center">
+            <div ref={introTextRef} className="mt-10 text-center pointer-events-auto">
+              <p className="text-[#f2dfc2] text-lg mb-4" style={{ fontFamily: "'Cinzel', serif" }}>
+                Egy üzenet vár rád...
+              </p>
               <button
-                ref={sealRef}
                 onClick={handleOpen}
-                className="w-40 h-40 active:scale-95 transition-transform drop-shadow-[0_14px_28px_rgba(0,0,0,0.5)]"
+                className="px-6 py-3 text-[#f6e6cb] border border-[#8d6039] bg-[#3a2417]/90 rounded-sm"
+                style={{ fontFamily: "'Cinzel', serif" }}
               >
-                <img src="/seal.png" alt="Pecsét" className="w-full h-full object-contain" />
+                Törd meg a pecsétet
               </button>
-
-              <div ref={introTextRef} className="mt-7 text-center">
-                <p className="text-[#f2dfc2] text-[15px] mb-4 opacity-95" style={{ fontFamily: "'Cinzel', serif" }}>
-                  Egy üzenet vár rád...
-                </p>
-                <button
-                  onClick={handleOpen}
-                  className="px-5 py-3 text-[#f6e6cb] border border-[#8d6039] bg-[#3a2417]/85 rounded-sm tracking-wide"
-                  style={{ fontFamily: "'Cinzel', serif" }}
-                >
-                  Törd meg a pecsétet
-                </button>
-              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* --- FŐ TARTALOM (HERO, MAP, TIMELINE) --- */}
+      {/* --- FŐ TARTALOM --- */}
       {showMainContent && (
-        <div className="opacity-100 transition-opacity duration-1000">
-          
-          {/* HERO SZKCIÓ */}
-          <section className="hero-panel relative h-screen w-full overflow-hidden">
-            <div
-              className="hero-bg absolute inset-0 bg-cover bg-center"
+        <div className="animate-in fade-in duration-1000">
+          <section className="hero-panel relative h-screen w-full flex items-center justify-center px-5">
+             <div
+              className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: "url('/paper-texture.jpg')" }}
             />
-            {/* Sötétítő rétegek az olvashatóságért */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(20,13,9,0.65),rgba(20,13,9,0.15),rgba(20,13,9,0.75))]" />
+            <div className="absolute inset-0 bg-black/40" />
             
-            <div className="relative z-10 h-full flex items-center justify-center px-5">
-              <div className="hero-card relative w-full max-w-[360px] text-center">
-                <div className="relative px-6 pt-14 pb-16 bg-[#f0ddbf]/80 backdrop-blur-[1.5px] border border-[#8b633d]/30 shadow-2xl">
-                  <p className="text-[11px] tracking-[0.35em] uppercase text-[#7b5537] mb-7" style={{ fontFamily: "'Cinzel', serif" }}>
-                    ✧ A Szövetség Megköttetik ✧
-                  </p>
-                  <h1 className="text-[46px] leading-none text-[#3a2416] mb-5" style={{ fontFamily: "'Cinzel', serif" }}>
-                    Eszter <span className="text-[#8d5d38]">&</span> Péter
-                  </h1>
-                  <p className="text-[22px] tracking-[0.12em] text-[#4f3524] uppercase" style={{ fontFamily: "'Cinzel', serif" }}>
-                    2026.10.03
-                  </p>
-                  <p className="mt-10 text-[#6f4a31] italic text-lg leading-relaxed">
-                    „Két út találkozott...”<br />
-                    „Egy közös történet kezdődött...”
-                  </p>
-                </div>
-              </div>
+            <div className="hero-card relative z-10 w-full max-w-[360px] bg-[#f0ddbf]/85 p-10 border border-[#8b633d]/30 text-center shadow-2xl">
+              <h1 className="text-4xl text-[#3a2416] mb-4" style={{ fontFamily: "'Cinzel', serif" }}>
+                Eszter & Péter
+              </h1>
+              <p className="text-xl text-[#8d5d38]" style={{ fontFamily: "'Cinzel', serif" }}>2026.10.03</p>
+              <p className="mt-8 italic text-[#6f4a31]">„A kaland most kezdődik...”</p>
             </div>
           </section>
 
