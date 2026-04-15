@@ -184,7 +184,7 @@ export default function Home() {
 
                 {/* mini heading */}
                 <p
-                  className="text-[10px] tracking-[0.34em] uppercase text-[#422e1d] opacity-75 mb-8"
+                  className="text-[9px] tracking-[0.34em] uppercase text-[#422e1d] opacity-75 mb-8"
                   style={{ fontFamily: "'Cinzel', serif" }}
                 >
                   ✧ A Szövetség Megköttetik ✧
