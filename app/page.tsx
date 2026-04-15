@@ -163,21 +163,100 @@ export default function Home() {
       {/* --- FŐ TARTALOM --- */}
       {showMainContent && (
         <div className="animate-in fade-in duration-1000">
-          <section className="hero-panel relative h-screen w-full flex items-center justify-center px-5">
-             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/paper-texture.jpg')" }}
-            />
-            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(110,60,170,0.22),transparent_42%),radial-gradient(circle_at_50%_75%,rgba(255,140,70,0.08),transparent_58%),linear-gradient(to_bottom,rgba(15,10,20,0.28),rgba(15,10,20,0.46))]" />
-            
-            <div className="hero-card relative z-10 w-full max-w-[360px] bg-[#f0ddbf]/85 p-10 border border-[#8b633d]/30 text-center shadow-2xl">
-              <h1 className="text-4xl text-[#3a2416] mb-4" style={{ fontFamily: "'Cinzel', serif" }}>
-                Eszter & Péter
-              </h1>
-              <p className="text-xl text-[#8d5d38]" style={{ fontFamily: "'Cinzel', serif" }}>2026.10.03</p>
-              <p className="mt-8 italic text-[#6f4a31]">„A kaland most kezdődik...”</p>
+
+          {/* HERO */}
+          <section className="relative min-h-screen w-full flex items-center justify-center px-5 py-8 overflow-hidden">
+            {/* Háttér - Teljes papír textúra Elden Ring stílusú árnyékolással */}
+            <div className="fixed inset-0 z-0">
+              {/* Az alap textúra - magasabb opacitással, hogy ez legyen a fő látvány */}
+              <div
+                className="absolute inset-0 bg-cover bg-center brightness-[0.7] sepia-[0.15]"
+                style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+              />
+              
+              {/* Misztikus sötétítés: Erős belső árnyék (vignetta) és gradiensek */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.8)_100%)]" />
+              
+              {/* Finom, meleg fények a sarkokban és középen (parázs-szerű derengés) */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,160,60,0.08),transparent_40%),radial-gradient(circle_at_15%_85%,rgba(255,100,50,0.05),transparent_30%),radial-gradient(circle_at_85%_85%,rgba(255,100,50,0.05),transparent_30%)]" />
+
+              {/* Mélységet adó belső árnyék a keret széleinél */}
+              <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.85)]" />
+            </div>
+
+            {/* Meghívó panel */}
+            <div className="relative z-10 w-full max-w-[370px]">
+
+              <div
+                className="relative overflow-hidden rounded-[3px] border border-[#8b633d]/30 bg-[#ead4af] px-7 pt-12 pb-12 text-center shadow-[0_26px_55px_rgba(0,0,0,0.42)]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.03)), url('/paper-texture.jpg')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                {/* belső textúra és vignette */}
+                <div className="absolute inset-0 opacity-18 mix-blend-multiply bg-cover bg-center pointer-events-none"
+                    style={{ backgroundImage: "url('/paper-texture.jpg')" }} />
+                <div className="absolute inset-0 shadow-[inset_0_0_45px_rgba(80,40,20,0.16)] pointer-events-none" />
+
+                {/* mini heading */}
+                <p
+                  className="text-[10px] tracking-[0.34em] uppercase text-[#7b5537] opacity-75 mb-8"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  ✧ A Szövetség Megköttetik ✧
+                </p>
+
+                {/* fő név */}
+                <h1
+                  className="text-[42px] leading-[1.02] text-[#3a2416] mb-6"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  Eszter & Péter
+                </h1>
+
+                {/* díszítő sor */}
+                <div className="flex items-center justify-center gap-3 mb-7">
+                  <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#8b5d37]/70" />
+                  <div className="w-[6px] h-[6px] rotate-45 border border-[#8b5d37]/70" />
+                  <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#8b5d37]/70" />
+                </div>
+
+                {/* dátum */}
+                <p
+                  className="text-[21px] tracking-[0.10em] uppercase text-[#4e3424] mb-8"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  2026.10.03
+                </p>
+
+                {/* második díszítő sor */}
+                <div className="flex items-center justify-center gap-3 mb-8">
+                  <div className="h-[1px] w-10 bg-[#8b5d37]/28" />
+                  <div className="text-[#8b5d37]/55 text-[11px]">✦</div>
+                  <div className="h-[1px] w-10 bg-[#8b5d37]/28" />
+                </div>
+
+                {/* idézet */}
+                <div className="text-[#6a4730] italic text-[17px] leading-[1.9]">
+                  <p>„Két út találkozott...”</p>
+                  <p>„Egy közös történet kezdődött...”</p>
+                </div>
+
+                {/* scroll hint */}
+                <div
+                  className="mt-10 text-[13px] tracking-[0.18em] text-[#7a5434] opacity-80"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  -- Görgess tovább --
+                </div>
+              </div>
             </div>
           </section>
+
+
 
           {/* TÉRKÉP SZEKCIÓ (Az eredeti kódból maradt) */}
           <section className="map-panel relative h-screen w-full overflow-hidden">
