@@ -174,32 +174,14 @@ export default function Home() {
                 style={{ backgroundImage: "url('/paper-texture.jpg')" }}
               />
               
-              {/* Misztikus sötétítés: Erős belső árnyék (vignetta) és gradiensek */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.8)_100%)]" />
-              
-              {/* Finom, meleg fények a sarkokban és középen (parázs-szerű derengés) */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,160,60,0.08),transparent_40%),radial-gradient(circle_at_15%_85%,rgba(255,100,50,0.05),transparent_30%),radial-gradient(circle_at_85%_85%,rgba(255,100,50,0.05),transparent_30%)]" />
-
-              {/* Mélységet adó belső árnyék a keret széleinél */}
-              <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.85)]" />
             </div>
 
             {/* Meghívó panel */}
             <div className="relative z-10 w-full max-w-[370px]">
 
               <div
-                className="relative overflow-hidden rounded-[3px] border border-[#8b633d]/30 bg-[#ead4af] px-7 pt-12 pb-12 text-center shadow-[0_26px_55px_rgba(0,0,0,0.42)]"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.03)), url('/paper-texture.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
+                className="relative overflow-hidden rounded-[3px] px-7 pt-12 pb-12 text-center shadow-[0_26px_55px_rgba(0,0,0,0.42)]"
               >
-                {/* belső textúra és vignette */}
-                <div className="absolute inset-0 opacity-18 mix-blend-multiply bg-cover bg-center pointer-events-none"
-                    style={{ backgroundImage: "url('/paper-texture.jpg')" }} />
-                <div className="absolute inset-0 shadow-[inset_0_0_45px_rgba(80,40,20,0.16)] pointer-events-none" />
 
                 {/* mini heading */}
                 <p
