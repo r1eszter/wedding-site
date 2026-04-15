@@ -139,15 +139,15 @@ export default function Home() {
             </button>
 
             <div ref={introTextRef} className="mt-10 text-center pointer-events-auto">
-              <p className="text-[#f2dfc2] text-lg mb-4" style={{ fontFamily: "'Cinzel', serif" }}>
-                Egy üzenet vár rád...
-              </p>
               <button
                 onClick={handleOpen}
-                className="px-6 py-3 text-[#f6e6cb] border border-[#8d6039] bg-[#3a2417]/90 rounded-sm"
-                style={{ fontFamily: "'Cinzel', serif" }}
+                className="w-[280px] transition-transform duration-300 hover:scale-105 active:scale-95 ease-out"
               >
-                Törd meg a pecsétet
+                <img 
+                  src="/title.png" 
+                  alt="Törd meg a pecsétet" 
+                  className="w-full h-auto drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]"
+                />
               </button>
             </div>
           </div>
