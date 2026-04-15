@@ -109,24 +109,32 @@ export default function Home() {
       {!isOpen && (
         <div className="fixed inset-0 z-[100] flex overflow-hidden pointer-events-none">
           
-          {/* Bal fél */}
+          {/* Bal fél javított árnyékkal és vignettával */}
           <div 
             ref={leftPartRef}
-            className="relative w-1/2 h-full bg-cover bg-center border-r border-[#8b633d]/20 pointer-events-auto"
-            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+            className="relative w-1/2 h-full bg-cover bg-center pointer-events-auto"
+            style={{ 
+              backgroundImage: "url('/intro.jpg')",
+              boxShadow: "inset -20px 0 30px -10px rgba(0,0,0,0.5)" // Belső árnyék az élnek
+            }}
           >
-            {/* Árnyék az illesztésnél */}
-            <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/20 to-transparent" />
+            {/* Sötétítő réteg a széleken */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
           </div>
+
 
           {/* Jobb fél */}
           <div 
             ref={rightPartRef}
-            className="relative w-1/2 h-full bg-cover bg-center border-l border-[#8b633d]/20 pointer-events-auto"
-            style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+            className="relative w-1/2 h-full bg-cover bg-center pointer-events-auto"
+            style={{ 
+              backgroundImage: "url('/intro.jpg')",
+              boxShadow: "inset 20px 0 30px -10px rgba(0,0,0,0.5)" // Belső árnyék az élnek
+            }}
           >
-            <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-transparent to-transparent" />
           </div>
+
 
           {/* Középső tartalom (Pecsét és felirat) */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
@@ -162,7 +170,7 @@ export default function Home() {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: "url('/paper-texture.jpg')" }}
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(110,60,170,0.22),transparent_42%),radial-gradient(circle_at_50%_75%,rgba(255,140,70,0.08),transparent_58%),linear-gradient(to_bottom,rgba(15,10,20,0.28),rgba(15,10,20,0.46))]" />
             
             <div className="hero-card relative z-10 w-full max-w-[360px] bg-[#f0ddbf]/85 p-10 border border-[#8b633d]/30 text-center shadow-2xl">
               <h1 className="text-4xl text-[#3a2416] mb-4" style={{ fontFamily: "'Cinzel', serif" }}>
