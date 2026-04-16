@@ -228,7 +228,7 @@ export default function Home() {
                   className="text-[11px] tracking-[0.2em] text-[#e0d6ce] uppercase opacity-60"
                   style={{ fontFamily: "'Cinzel', serif" }}
                 >
-                  Görgess a térképhez
+                  Haladj tovább
                 </div>
                 <div className="w-[1px] h-12 bg-gradient-to-b to-transparent opacity-40" />
               </div>
@@ -240,92 +240,101 @@ export default function Home() {
 
 
 
-          {/* --- BIRODALOM SZABÁLYAI (RULES SECTION) --- */}
-          <section className="relative min-h-[140vh] w-full flex flex-col items-center pt-32 pb-28 px-6 overflow-hidden">
-            
-            {/* A RULE.PNG HÁTTÉR */}
-            <div className="absolute inset-0 z-0">
-              <img 
-                src="/rule.png" 
-                alt="Birodalmi Törvények" 
-                className="w-full h-full object-fill opacity-100"
+{/* --- BIRODALOM SZABÁLYAI (FIXED ASPECT RATIO VERSION) --- */}
+        <section className="relative w-full flex flex-col items-center bg-[#0d0a08]">
+
+          {/* Fix Háttér */}
+            <div className="fixed inset-0 z-0">
+              <div
+                className="absolute inset-0 bg-cover bg-center brightness-[0.7] sepia-[0.15]"
+                style={{ backgroundImage: "url('/paper-texture.jpg')" }}
               />
-              <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.4)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.4)_100%)]" />
             </div>
+          
+          {/* A KÉP KONTEINER - Ez tartja meg az arányokat */}
+          <div className="relative w-full max-w-[500px] flex flex-col items-center">
+            
+            {/* Maga a kép, ami most már nem nyúlik, hanem az eredeti arányait tartja */}
+            <img 
+              src="/rule.png" 
+              alt="Birodalmi Törvények" 
+              className="w-full h-auto block" // h-auto = nincs torzítás
+            />
 
-            {/* TARTALOM - Itt a 'mt-20' vagy 'pt-20' tolja lejjebb a kezdést a képen belül */}
-            <div className="relative z-10 w-full max-w-[300px] flex flex-col items-center mt-24">
-
-              {/* Szabályok listája */}
-              <div className="space-y-0 w-full text-[#2a1a0f]">
+            {/* A SZÖVEG RÉTEG - Abszolút pozicionálva a kép fölé */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center px-8 pt-[25%]">
+              
+              {/* Szabályok listája - A távolságokat (gap) itt tudod finomítani */}
+              <div className="flex flex-col gap-12 w-full text-[#2a1a0f] max-w-[280px]">
                 
+                {/* 1. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[12px] font-bold uppercase tracking-[0.25em] mb-3 text-[#5e412f]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅰ. A Kiválasztottak Rendje
                   </h3>
-                  <p className="text-[15px] italic leading-relaxed px-2">
-                    Az eseményen kizárólag azok vehetnek részt, akik személyes meghívót kaptak. A szűkös keret és a bensőséges hangulat miatt a +1 fő kérését sajnos nem tudjuk teljesíteni.
+                  <p className="text-[13px] italic leading-relaxed opacity-95">
+                    A birodalom kapui csak a személyesen meghívott vendégek előtt nyílnak meg.
                   </p>
                 </div>
 
+                {/* 2. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[12px] font-bold uppercase tracking-[0.25em] mb-3 text-[#5e412f]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅱ. A Megjelenés Törvénye
                   </h3>
-                  <p className="text-[15px] italic leading-relaxed px-2">
-                    Kérünk titeket, tiszteljetek meg minket elegáns öltözékkel. Ha kedvezni szeretnétek az esztétikának, kérjük, kerüljétek a rikító és élénk színeket.
-                  </p>
+                  <p className="text-[13px] italic leading-relaxed opacity-95">
+                      Kérünk benneteket, hogy megjelenésetekkel emeljétek az alkalom fényét.
+                      Az összhang érdekében kérjük, kerüljétek a rikító színeket.                  </p>
                 </div>
 
+                {/* 3. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[12px] font-bold uppercase tracking-[0.25em] mb-3 text-[#5e412f]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅲ. A Kincstár Hozzájárulása
                   </h3>
-                  <p className="text-[15px] italic leading-relaxed px-2">
-                    Ami az ajándékokat illeti: tárgyi felajánlások helyett hálával fogadjuk a borítékba rejtett hozzájárulást közös életünk elindításához.
+                  <p className="text-[13px] italic leading-relaxed opacity-95">
+                    Ha támogatnátok utunkat. Kalandunkhoz aranyérméknek örülünk leginkább.
                   </p>
                 </div>
 
+                {/* 4. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[12px] font-bold uppercase tracking-[0.25em] mb-3 text-[#5e412f]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅳ. A Megpihenés Joga
                   </h3>
-                  <p className="text-[15px] italic leading-relaxed px-2">
-                    A távoli utazók ne aggódjanak: a Birodalom minden vendége számára biztosítunk éjszakai szállást a helyszínen.
+                  <p className="text-[13px] italic leading-relaxed opacity-95">
+                    Minden vándorunk számára biztosítunk éjszakai szállást a helyszínen.
                   </p>
                 </div>
 
-                {/* Zenei rész */}
-                <div className="flex flex-col items-center text-center pt-10">
-                  <h3 className="text-[12px] font-bold uppercase tracking-[0.25em] mb-4 text-[#5e412f]" style={{ fontFamily: "'Cinzel', serif" }}>
+                {/* 5. Zene */}
+                <div className="flex flex-col items-center text-center pt-4">
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅴ. A Vigasság Dallamai
                   </h3>
-                  <p className="text-[14px] italic mb-8 leading-relaxed">
-                    Segíts összeállítani az éjszaka dalait! Kattints a pecsétre, és add hozzá kedvenceidet a listához.
-                  </p>
-                  
                   <a 
-                    href="IDE_JÖN_A_LINK" 
+                    href="YOUR_LINK_HERE" 
                     target="_blank"
-                    className="relative group transition-transform hover:scale-110 active:scale-90"
+                    className="relative group active:scale-90 transition-transform"
                   >
-                    <div className="absolute inset-0 bg-[#8b633d]/20 blur-2xl rounded-full" />
-                    <img 
-                      src="/seal.png" 
-                      className="w-20 h-20 relative z-10 drop-shadow-2xl" 
-                      alt="Zenei pecsét"
-                    />
+                    <img src="/seal.png" className="w-16 h-16 drop-shadow-xl" alt="Zenei pecsét" />
                   </a>
+                  <p className="text-[10px] mt-4 opacity-70 italic leading-tight">
+                    Kattints a pecsétre a listához!
+                  </p>
                 </div>
 
               </div>
-
-              {/* Átvezető vonal */}
-              <div className="mt-32 flex flex-col items-center">
-                <div className="w-[1px] h-40 bg-gradient-to-b from-[#2a1a0f] to-transparent opacity-60" />
-              </div>
             </div>
-          </section>
+          </div>
+
+          {/* Átvezető vonal a következő szekcióhoz */}
+          <div className="mt-10 mb-20 flex flex-col items-center opacity-30">
+            <div className="w-[1px] h-32 bg-gradient-to-b from-[#8b633d] to-transparent" />
+          </div>
+        </section>
+
 
 
           {/* TÉRKÉP SZEKCIÓ (Az eredeti kódból maradt) */}
