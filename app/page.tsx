@@ -164,77 +164,78 @@ export default function Home() {
       {showMainContent && (
         <div className="animate-in fade-in duration-1000">
 
-          {/* HERO */}
-          <section className="relative min-h-screen w-full flex items-center justify-center px-5 py-8 overflow-hidden">
-            {/* Háttér - Teljes papír textúra Elden Ring stílusú árnyékolással */}
+          {/* --- HERO SECTION --- */}
+          <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-5 overflow-hidden border-b border-[#8b633d]/20">
+            {/* Fix Háttér */}
             <div className="fixed inset-0 z-0">
-              {/* Az alap textúra - magasabb opacitással, hogy ez legyen a fő látvány */}
               <div
                 className="absolute inset-0 bg-cover bg-center brightness-[0.7] sepia-[0.15]"
                 style={{ backgroundImage: "url('/paper-texture.jpg')" }}
               />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.4)_100%)]" />
             </div>
 
-            {/* Meghívó panel */}
-            <div className="relative z-10 w-full max-w-[370px]">
-
-              <div
-                className="relative overflow-hidden rounded-[3px] px-7 pt-12 pb-12 text-center"
+            {/* Meghívó panel tartalma - Itt a justify-center és a h-full biztosítja a középre zárást */}
+            <div className="relative z-10 w-full max-w-[370px] flex flex-col items-center justify-center min-h-screen">
+              
+              {/* Mini heading */}
+              <p
+                className="text-[9px] tracking-[0.34em] uppercase text-[#422e1d] opacity-75 mb-8"
+                style={{ fontFamily: "'Cinzel', serif" }}
               >
+                ✧ A Szövetség Megköttetik ✧
+              </p>
 
-                {/* mini heading */}
-                <p
-                  className="text-[9px] tracking-[0.34em] uppercase text-[#422e1d] opacity-75 mb-8"
-                  style={{ fontFamily: "'Cinzel', serif" }}
-                >
-                  ✧ A Szövetség Megköttetik ✧
-                </p>
+              {/* Fő név */}
+              <h1
+                className="text-[42px] leading-[1.02] text-[#422e1d] mb-6 text-center"
+                style={{ fontFamily: "'Cinzel', serif" }}
+              >
+                Eszter & Péter
+              </h1>
 
-                {/* fő név */}
-                <h1
-                  className="text-[42px] leading-[1.02] text-[#422e1d] mb-6"
-                  style={{ fontFamily: "'Cinzel', serif" }}
-                >
-                  Eszter & Péter
-                </h1>
+              {/* Díszítő sor */}
+              <div className="flex items-center justify-center gap-3 mb-7">
+                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#241a11]/70" />
+                <div className="w-[6px] h-[6px] rotate-45 border border-[#241a11]/70" />
+                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#241a11]/70" />
+              </div>
 
-                {/* díszítő sor */}
-                <div className="flex items-center justify-center gap-3 mb-7">
-                  <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#241a11]/70" />
-                  <div className="w-[6px] h-[6px] rotate-45 border border-[#241a11]/70" />
-                  <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#241a11]/70" />
-                </div>
+              {/* Dátum */}
+              <p
+                className="text-[21px] tracking-[0.10em] uppercase text-[#4e3424] mb-8 text-center"
+                style={{ fontFamily: "'Cinzel', serif" }}
+              >
+                2026.10.03
+              </p>
 
-                {/* dátum */}
-                <p
-                  className="text-[21px] tracking-[0.10em] uppercase text-[#4e3424] mb-8"
-                  style={{ fontFamily: "'Cinzel', serif" }}
-                >
-                  2026.10.03
-                </p>
+              {/* Második díszítő sor */}
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="h-[1px] w-10 bg-[#241a11]/28" />
+                <div className="text-[#241a11]/55 text-[11px]">✦</div>
+                <div className="h-[1px] w-10 bg-[#241a11]/28" />
+              </div>
 
-                {/* második díszítő sor */}
-                <div className="flex items-center justify-center gap-3 mb-8">
-                  <div className="h-[1px] w-10 bg-[#241a11]/28" />
-                  <div className="text-[#241a11]/55 text-[11px]">✦</div>
-                  <div className="h-[1px] w-10 bg-[#241a11]/28" />
-                </div>
+              {/* Idézet */}
+              <div className="text-[#36281d] italic text-[17px] leading-[1.9] text-center">
+                <p>„Két út találkozott...”</p>
+                <p>„Egy közös történet kezdődött...”</p>
+              </div>
 
-                {/* idézet */}
-                <div className="text-[#36281d] italic text-[17px] leading-[1.9]">
-                  <p>„Két út találkozott...”</p>
-                  <p>„Egy közös történet kezdődött...”</p>
-                </div>
-
-                {/* scroll hint */}
+              {/* Görgetés jelző - absolute pozícióval az aljára, hogy ne tolja el a fenti szöveget */}
+              <div className="absolute bottom-10 flex flex-col items-center gap-4 animate-pulse">
                 <div
-                  className="mt-10 text-[13px] tracking-[0.18em] text-[#4a3626] opacity-80"
+                  className="text-[11px] tracking-[0.2em] text-[#4a3626] uppercase opacity-60"
                   style={{ fontFamily: "'Cinzel', serif" }}
                 >
-                  -- Görgess tovább --
+                  Görgess a térképhez
                 </div>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-[#4a3626] to-transparent opacity-40" />
               </div>
             </div>
+
+            {/* Alsó átmeneti réteg */}
+            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
           </section>
 
 
