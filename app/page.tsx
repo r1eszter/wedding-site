@@ -380,36 +380,50 @@ export default function Home() {
             <div className="relative z-10 px-5 pt-20 pb-20">
               <div className="max-w-[360px] mx-auto">
                 <h2
-                  className="quest-title text-center text-[#f6e5ca] text-[30px] mb-8"
+                  className="quest-title text-center text-[#f6e5ca] text-[35px] mb-8"
                   style={{ fontFamily: "'Cinzel', serif" }}
                 >
                   A Küldetés Menete
                 </h2>
 
                 <div className="relative pl-5">
+                  {/* Idővonal vonal */}
                   <div className="absolute left-[10px] top-1 bottom-1 w-[1px] bg-gradient-to-b from-[#8b5d37] via-[#d6a06f] to-[#8b5d37]" />
 
-                  <div className="space-y-4">
+                  <div className="space-y-6"> {/* Kicsit nagyobb helyet hagytam köztük, h jobban érvényesüljön a kép */}
                     {timeline.map((item, index) => (
                       <div
                         key={`${item.time}-${index}`}
-                        className="timeline-item relative rounded-sm border border-[#8a603b]/30 bg-[#1f140d]/50 backdrop-blur-[1px] px-4 py-4 ml-4"
+                        className="timeline-item relative rounded-2xl border border-[#8a603b]/40 overflow-hidden ml-4 shadow-xl"
+                        style={{ 
+                          backgroundImage: "url('/story-landscape.jpg')",
+                          backgroundAttachment: 'fixed', // <--- Ez teszi folytonossá a képet
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center'
+                        }}
                       >
-                        <div className="absolute -left-[18px] top-6 w-3 h-3 rounded-full bg-[#f3c188] border border-[#f8e3c2] shadow-[0_0_16px_rgba(255,168,90,0.45)]" />
-                        <div className="flex gap-3">
-                          <div className="text-2xl leading-none mt-1">{item.icon}</div>
-                          <div>
+                        {/* Sötétítő réteg és blur - hogy a szöveg kiemelkedjen a háttérből */}
+                        <div className="absolute inset-0 bg-[#140d09]/65 backdrop-blur-[2px]" />
+
+                        {/* Tartalom */}
+                        <div className="relative z-10 px-5 py-5 flex gap-4">
+                          {/* Pont az idővonalon */}
+                          <div className="absolute -left-[25px] top-7 w-3.5 h-3.5 rounded-full bg-[#f3c188] border-2 border-[#140d09] shadow-[0_0_15px_rgba(255,168,90,0.7)]" />
+                          
+                          <div className="text-3xl leading-none mt-1 shrink-0 filter drop-shadow-md">{item.icon}</div>
+                          
+                          <div className="flex flex-col">
                             <p
-                              className="text-[#f8e7ce] text-lg"
+                              className="text-[#f8e7ce] text-xl font-bold tracking-tight"
                               style={{ fontFamily: "'Cinzel', serif" }}
                             >
                               {item.time}
                             </p>
-                            <p className="text-[#f5e0c3] text-base leading-snug">
+                            <p className="text-[#f5e0c3] text-lg leading-snug font-semibold mt-0.5">
                               {item.title}
                             </p>
                             {item.subtitle && (
-                              <p className="text-[#d7b38d] text-sm mt-1 opacity-90">
+                              <p className="text-[#d7b38d] text-sm mt-1.5 opacity-90 italic leading-tight">
                                 {item.subtitle}
                               </p>
                             )}
@@ -420,7 +434,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <p className="text-center text-[#ecd0ac] text-sm mt-7 tracking-wide">
+                <p className="text-center text-[#ecd0ac] text-[20px] mt-7 tracking-wide">
                   Visszajelzés határideje: 2026.08.15
                 </p>
 
@@ -445,9 +459,6 @@ export default function Home() {
                     Visszajelzés
                   </button>
 
-                  <p className="mt-6 text-[#795338] text-sm opacity-90">
-                    Jelenlétetek a legnagyobb ajándék számunkra.
-                  </p>
                 </div>
               </div>
             </div>
