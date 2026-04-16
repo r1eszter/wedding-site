@@ -87,17 +87,7 @@ body {
   isolation: isolate;
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
+
 
 @keyframes float-delayed {
   0% {
@@ -111,11 +101,11 @@ body {
   }
 }
 
-.animate-float {
-  animation: float 4s ease-in-out infinite;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-.animate-float-delayed {
-  animation: float-delayed 5s ease-in-out infinite;
-  animation-delay: 1s;
-}
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-delayed { animation: float 5s ease-in-out infinite 1s; }
+

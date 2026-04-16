@@ -81,14 +81,22 @@ export default function Home() {
     if (!showMainContent || !isMobile) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(".hero-card", 
-        { opacity: 0, y: 50 }, 
-        { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: ".hero-panel", start: "top 80%" } }
-      );
+      gsap.from(".timeline-item", {
+        scrollTrigger: {
+          trigger: ".quest-panel",
+          start: "top 70%",
+        },
+        x: -50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2, // Ez adja meg a sorozatos késleltetést
+        ease: "power2.out"
+      });
       // Itt tarthatod a többi szekció (map, timeline) animációját...
     }, containerRef);
 
     return () => ctx.revert();
+
   }, [showMainContent, isMobile]);
 
   if (!isMobile) {
