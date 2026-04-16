@@ -234,8 +234,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Alsó átmeneti réteg */}
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
           </section>
 
 
@@ -253,8 +251,8 @@ export default function Home() {
           </div>
           
           {/* A KÉP KONTEINER */}
-          <div className="relative w-full max-w-[500px] flex flex-col items-center">
-            
+          <div className="relative w-full max-w-[500px] flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl">            
+           
             {/* A háttérkép - h-auto-val őrzi az arányait */}
             <img 
               src="/rule.png" 
@@ -326,10 +324,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Átvezető vonal */}
-          <div className="mt-12 mb-20 flex flex-col items-center opacity-30">
-            <div className="w-[1px] h-32 bg-gradient-to-b from-[#8b633d] to-transparent" />
-          </div>
+          
         </section>
 
 
@@ -380,13 +375,8 @@ export default function Home() {
 
           {/* MENETREND SZEKCIÓ (Az eredeti kódból maradt) */}
           <section className="quest-panel relative min-h-[175vh] w-full overflow-hidden">
-            <div
-              className="quest-bg absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/story-landscape.jpg')" }}
-            />
-            <div className="quest-glow absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,180,90,0.10),transparent_35%),linear-gradient(to_bottom,rgba(20,13,9,0.28),rgba(20,13,9,0.42),rgba(20,13,9,0.72))]" />
-            <div className="absolute inset-0 shadow-[inset_0_0_160px_rgba(0,0,0,0.45)]" />
-
+            
+            
             <div className="relative z-10 px-5 pt-20 pb-20">
               <div className="max-w-[360px] mx-auto">
                 <h2
