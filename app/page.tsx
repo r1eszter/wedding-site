@@ -180,7 +180,7 @@ export default function Home() {
               
               {/* Mini heading */}
               <p
-                className="text-[9px] tracking-[0.34em] uppercase text-[#422e1d] opacity-75 mb-8"
+                className="text-[9px] tracking-[0.34em] uppercase text-[#e0d6ce] opacity-75 mb-8"
                 style={{ fontFamily: "'Cinzel', serif" }}
               >
                 ✧ A Szövetség Megköttetik ✧
@@ -188,7 +188,7 @@ export default function Home() {
 
               {/* Fő név */}
               <h1
-                className="text-[42px] leading-[1.02] text-[#422e1d] mb-6 text-center"
+                className="text-[42px] leading-[1.02] text-[#e0d6ce] mb-6 text-center"
                 style={{ fontFamily: "'Cinzel', serif" }}
               >
                 Eszter & Péter
@@ -196,14 +196,14 @@ export default function Home() {
 
               {/* Díszítő sor */}
               <div className="flex items-center justify-center gap-3 mb-7">
-                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#241a11]/70" />
-                <div className="w-[6px] h-[6px] rotate-45 border border-[#241a11]/70" />
-                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#241a11]/70" />
+                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#e0d6ce]/70" />
+                <div className="w-[6px] h-[6px] rotate-45 border border-[#e0d6ce]/70" />
+                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#e0d6ce]/70" />
               </div>
 
               {/* Dátum */}
               <p
-                className="text-[21px] tracking-[0.10em] uppercase text-[#4e3424] mb-8 text-center"
+                className="text-[21px] tracking-[0.10em] uppercase text-[#e0d6ce] mb-8 text-center"
                 style={{ fontFamily: "'Cinzel', serif" }}
               >
                 2026.10.03
@@ -211,13 +211,13 @@ export default function Home() {
 
               {/* Második díszítő sor */}
               <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="h-[1px] w-10 bg-[#241a11]/28" />
-                <div className="text-[#241a11]/55 text-[11px]">✦</div>
-                <div className="h-[1px] w-10 bg-[#241a11]/28" />
+                <div className="h-[1px] w-10 bg-[#e0d6ce]/28" />
+                <div className="text-[#e0d6ce]/55 text-[11px]">✦</div>
+                <div className="h-[1px] w-10 bg-[#e0d6ce]/28" />
               </div>
 
               {/* Idézet */}
-              <div className="text-[#36281d] italic text-[17px] leading-[1.9] text-center">
+              <div className="text-[#e0d6ce] italic text-[17px] leading-[1.9] text-center">
                 <p>„Két út találkozott...”</p>
                 <p>„Egy közös történet kezdődött...”</p>
               </div>
