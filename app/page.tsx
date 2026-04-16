@@ -240,7 +240,7 @@ export default function Home() {
 
 
 
-{/* --- BIRODALOM SZABÁLYAI (CENTERED VERSION) --- */}
+      {/* --- BIRODALOM SZABÁLYAI (CENTERED VERSION) --- */}
         <section className="relative w-full flex flex-col items-center bg-[#0d0a08]">
 
           {/* Fix Háttér (Papír textúra) */}
@@ -335,12 +335,6 @@ export default function Home() {
 
           {/* TÉRKÉP SZEKCIÓ (Az eredeti kódból maradt) */}
           <section className="map-panel relative h-screen w-full overflow-hidden">
-            <div
-              className="map-bg absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/map.jpg')" }}
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(20,13,9,0.18),rgba(20,13,9,0.28),rgba(20,13,9,0.42))]" />
-            <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.36)]" />
 
             <div className="relative z-10 h-full flex items-center justify-center px-4">
               <div className="map-card relative w-full max-w-[365px] rounded-sm border border-[#7d5a39]/30 bg-[#ead5b3]/72 backdrop-blur-[1px] px-4 py-5 shadow-[0_18px_40px_rgba(0,0,0,0.28)]">
