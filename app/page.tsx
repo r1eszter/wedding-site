@@ -320,7 +320,7 @@ export default function Home() {
                     Ⅴ. A Vigasság Dallamai
                   </h3>
                   <a 
-                    href="YOUR_LINK_HERE" 
+                    href="https://www.youtube.com/playlist?list=PLrlyZC8nNT0C4smDEY5K4MZZ8lqPNY-oz&jct=ZHcHxgsEnRlw4-QI9UZJJQ" 
                     target="_blank"
                     className="relative group active:scale-90 transition-transform block"
                   >
