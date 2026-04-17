@@ -33,7 +33,7 @@ const Particles = () => {
       }
       draw() {
         if (!ctx) return;
-        ctx.fillStyle = `rgba(243, 193, 136, ${this.opacity})`;
+        ctx.fillStyle = `rgba(252, 242, 230, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -203,6 +203,7 @@ export default function Home() {
       {/* --- INTRO RÉTEG (Boríték szétnyílása) --- */}
       {!isOpen && (
         <div className="fixed inset-0 z-[100] flex overflow-hidden pointer-events-none">
+          <Particles />
           
           {/* Bal fél javított árnyékkal és vignettával */}
           <div 
