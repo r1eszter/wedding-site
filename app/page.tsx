@@ -272,11 +272,11 @@ export default function Home() {
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-10">
               
               {/* Szabályok listája - Itt a gap-8 vagy gap-10 segít, hogy beleférjen a kép közepébe */}
-              <div className="flex flex-col gap-8 w-full text-[#2a1a0f] max-w-[260px]">
+              <div className="flex flex-col gap-8 w-full text-[#f7f6f5] max-w-[260px]">
                 
                 {/* 1. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅰ. A Kiválasztottak Rendje
                   </h3>
                   <p className="text-[12px] italic leading-relaxed opacity-95">
@@ -286,7 +286,7 @@ export default function Home() {
 
                 {/* 2. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅱ. A Megjelenés Törvénye
                   </h3>
                   <p className="text-[12px] italic leading-relaxed opacity-95">
@@ -296,7 +296,7 @@ export default function Home() {
 
                 {/* 3. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅲ. A Kincstár Hozzájárulása
                   </h3>
                   <p className="text-[12px] italic leading-relaxed opacity-95">
@@ -306,7 +306,7 @@ export default function Home() {
 
                 {/* 4. Szabály */}
                 <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅳ. A Megpihenés Joga
                   </h3>
                   <p className="text-[12px] italic leading-relaxed opacity-95">
@@ -316,7 +316,7 @@ export default function Home() {
 
                 {/* 5. Zene */}
                 <div className="flex flex-col items-center text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#3a2416]" style={{ fontFamily: "'Cinzel', serif" }}>
+                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
                     Ⅴ. A Vigasság Dallamai
                   </h3>
                   <a 
@@ -324,7 +324,7 @@ export default function Home() {
                     target="_blank"
                     className="relative group active:scale-90 transition-transform block"
                   >
-                    <img src="/seal.png" className="w-12 h-12 drop-shadow-lg mx-auto" alt="Zenei pecsét" />
+                    <img src="/youtube.png" className="w-15 h-12 drop-shadow-lg mx-auto" alt="Zenei pecsét" />
                   </a>
                 </div>
 
