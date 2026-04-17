@@ -392,52 +392,52 @@ export default function Home() {
                 </h2>
 
                 <div className="relative pl-5">
-                  {/* Idővonal vonal */}
-                  <div className="absolute left-[10px] top-1 bottom-1 w-[1px] bg-gradient-to-b from-[#8b5d37] via-[#d6a06f] to-[#8b5d37]" />
+                {/* Idővonal vonal */}
+                <div className="absolute left-[10px] top-1 bottom-1 w-[1px] bg-gradient-to-b from-[#8b5d37] via-[#d6a06f] to-[#8b5d37]" />
 
-                  <div className="space-y-6"> {/* Kicsit nagyobb helyet hagytam köztük, h jobban érvényesüljön a kép */}
-                    {timeline.map((item, index) => (
-                      <div
-                        key={`${item.time}-${index}`}
-                        className="timeline-item relative rounded-2xl border border-[#8a603b]/40 overflow-hidden ml-4 shadow-xl"
-                        style={{ 
-                          backgroundImage: "url('/story-landscape.jpg')",
-                          backgroundAttachment: 'fixed', // <--- Ez teszi folytonossá a képet
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center'
-                        }}
-                      >
-                        {/* Sötétítő réteg és blur - hogy a szöveg kiemelkedjen a háttérből */}
-                        <div className="absolute inset-0 bg-[#140d09]/65 backdrop-blur-[2px]" />
+                <div className="space-y-6"> {/* Kicsit nagyobb helyet hagytam köztük, h jobban érvényesüljön a kép */}
+                  {timeline.map((item, index) => (
+                    <div
+                      key={`${item.time}-${index}`}
+                      className="timeline-item relative rounded-2xl border border-[#8a603b]/40 overflow-hidden ml-4 shadow-xl"
+                      style={{ 
+                        backgroundImage: "url('/story-landscape.jpg')",
+                        backgroundAttachment: 'fixed', // <--- Ez teszi folytonossá a képet
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
+                    >
+                      {/* Sötétítő réteg és blur - hogy a szöveg kiemelkedjen a háttérből */}
+                      <div className="absolute inset-0 bg-[#140d09]/65 backdrop-blur-[2px]" />
 
-                        {/* Tartalom */}
-                        <div className="relative z-10 px-5 py-5 flex gap-4">
-                          {/* Pont az idővonalon */}
-                          <div className="absolute -left-[25px] top-7 w-3.5 h-3.5 rounded-full bg-[#f3c188] border-2 border-[#140d09] shadow-[0_0_15px_rgba(255,168,90,0.7)]" />
-                          
-                          <div className="text-3xl leading-none mt-1 shrink-0 filter drop-shadow-md">{item.icon}</div>
-                          
-                          <div className="flex flex-col">
-                            <p
-                              className="text-[#f8e7ce] text-xl font-bold tracking-tight"
-                              style={{ fontFamily: "'Cinzel', serif" }}
-                            >
-                              {item.time}
+                      {/* Tartalom */}
+                      <div className="relative z-10 px-5 py-5 flex gap-4">
+                        {/* Pont az idővonalon */}
+                        <div className="absolute -left-[25px] top-7 w-3.5 h-3.5 rounded-full bg-[#f3c188] border-2 border-[#140d09] shadow-[0_0_15px_rgba(255,168,90,0.7)]" />
+                        
+                        <div className="text-3xl leading-none mt-1 shrink-0 filter drop-shadow-md">{item.icon}</div>
+                        
+                        <div className="flex flex-col">
+                          <p
+                            className="text-[#f8e7ce] text-xl font-bold tracking-tight"
+                            style={{ fontFamily: "'Cinzel', serif" }}
+                          >
+                            {item.time}
+                          </p>
+                          <p className="text-[#f5e0c3] text-lg leading-snug font-semibold mt-0.5">
+                            {item.title}
+                          </p>
+                          {item.subtitle && (
+                            <p className="text-[#d7b38d] text-sm mt-1.5 opacity-90 italic leading-tight">
+                              {item.subtitle}
                             </p>
-                            <p className="text-[#f5e0c3] text-lg leading-snug font-semibold mt-0.5">
-                              {item.title}
-                            </p>
-                            {item.subtitle && (
-                              <p className="text-[#d7b38d] text-sm mt-1.5 opacity-90 italic leading-tight">
-                                {item.subtitle}
-                              </p>
-                            )}
-                          </div>
+                          )}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
+              </div>
 
                 <p className="text-center text-[#ecd0ac] text-[20px] mt-7 tracking-wide">
                   Visszajelzés határideje: 2026.08.15
