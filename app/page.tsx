@@ -457,12 +457,15 @@ export default function Home() {
                     Ha velünk tartanátok ezen a közös kalandon, kérlek jelezzetek vissza időben.
                   </p>
 
-                  <button
-                    className="px-8 py-3 bg-[#4a2d1c] text-[#f5e4ca] border border-[#8d633c] shadow-lg tracking-wide"
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeWMXCiXBlZ40cuEOiJEPK4qnLdKlKOpqHk28XbLJVnKz2jdg/viewform?usp=header"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-8 py-3 bg-[#4a2d1c] text-[#f5e4ca] border border-[#8d633c] shadow-lg tracking-wide active:scale-95 transition-transform"
                     style={{ fontFamily: "'Cinzel', serif" }}
                   >
                     Visszajelzés
-                  </button>
+                  </a>
 
                 </div>
               </div>
