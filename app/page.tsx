@@ -246,95 +246,92 @@ export default function Home() {
 
 
 
-      {/* --- BIRODALOM SZABÁLYAI (CENTERED VERSION) --- */}
-        <section className="relative w-full flex flex-col items-center bg-[#0d0a08]">
+          {/* --- BIRODALOM SZABÁLYAI (CENTERED VERSION) --- */}
+          <section className="relative w-full flex flex-col items-center bg-[#0d0a08]">
 
-          {/* Fix Háttér (Papír textúra) */}
-          <div className="fixed inset-0 z-0">
-            <div
-              className="absolute inset-0 bg-cover bg-center brightness-[0.7] sepia-[0.15]"
-              style={{ backgroundImage: "url('/paper-texture.jpg')" }}
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.4)_100%)]" />
-          </div>
-          
-          {/* A KÉP KONTEINER */}
-          <div className="relative w-full max-w-[500px] flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl">            
-           
-            {/* A háttérkép - h-auto-val őrzi az arányait */}
-            <img 
-              src="/rule.png" 
-              alt="Birodalmi Törvények" 
-              className="w-full h-auto block shadow-2xl" 
-            />
+            {/* Fix Háttér (Papír textúra) */}
+            <div className="fixed inset-0 z-0">
+              <div
+                className="absolute inset-0 bg-cover bg-center brightness-[0.7] sepia-[0.15]"
+                style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+              />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.4)_100%)]" />
+            </div>
 
-            {/* A SZÖVEG RÉTEG - justify-center: függőleges közép, items-center: vízszintes közép */}
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-10">
-              
-              {/* Szabályok listája - Itt a gap-8 vagy gap-10 segít, hogy beleférjen a kép közepébe */}
-              <div className="flex flex-col gap-8 w-full text-[#f7f6f5] max-w-[260px]">
-                
-                {/* 1. Szabály */}
-                <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
-                    Ⅰ. A Kiválasztottak Rendje
-                  </h3>
-                  <p className="text-[12px] italic leading-relaxed opacity-95">
-                    A birodalom kapui csak a személyesen meghívott vendégek előtt nyílnak meg. NO +1
-                  </p>
+            {/* A KÉP KONTEINER */}
+            <div className="relative w-full max-w-[500px] flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl">
+
+              {/* A háttérkép */}
+              <img
+                src="/rule.png"
+                alt="Birodalmi Törvények"
+                className="w-full h-auto block"
+              />
+
+              {/* A SZÖVEG RÉTEG */}
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-10">
+
+                {/* Szabályok listája - Árnyék hozzáadva az egész tárolóhoz */}
+                <div className="flex flex-col gap-8 w-full text-[#f7f6f5] max-w-[260px] drop-shadow-[0_2px_3px_rgba(0,0,0,0.9)]">
+
+                  {/* 1. Szabály */}
+                  <div className="text-center">
+                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5" style={{ fontFamily: "'Cinzel', serif" }}>
+                      Ⅰ. A Kiválasztottak Rendje
+                    </h3>
+                    <p className="text-[12px] italic leading-relaxed font-medium">
+                      A birodalom kapui csak a személyesen meghívott vendégek előtt nyílnak meg. NO +1
+                    </p>
+                  </div>
+
+                  {/* 2. Szabály */}
+                  <div className="text-center">
+                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5" style={{ fontFamily: "'Cinzel', serif" }}>
+                      Ⅱ. A Megjelenés Törvénye
+                    </h3>
+                    <p className="text-[12px] italic leading-relaxed font-medium">
+                      Kérünk benneteket, hogy megjelenésetekkel emeljétek az alkalom fényét. Kerüljétek a rikító színeket.
+                    </p>
+                  </div>
+
+                  {/* 3. Szabály */}
+                  <div className="text-center">
+                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5" style={{ fontFamily: "'Cinzel', serif" }}>
+                      Ⅲ. A Kincstár Hozzájárulása
+                    </h3>
+                    <p className="text-[12px] italic leading-relaxed font-medium">
+                      Ha támogatnátok utunkat, kalandunkhoz aranyérméknek örülünk leginkább.
+                    </p>
+                  </div>
+
+                  {/* 4. Szabály */}
+                  <div className="text-center">
+                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5" style={{ fontFamily: "'Cinzel', serif" }}>
+                      Ⅳ. A Megpihenés Joga
+                    </h3>
+                    <p className="text-[12px] italic leading-relaxed font-medium">
+                      Minden vándorunk számára biztosítunk éjszakai szállást a helyszínen.
+                    </p>
+                  </div>
+
+                  {/* 5. Zene */}
+                  <div className="flex flex-col items-center text-center">
+                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2" style={{ fontFamily: "'Cinzel', serif" }}>
+                      Ⅴ. A Vigasság Dallamai
+                    </h3>
+                    <a
+                      href="https://www.youtube.com/playlist?list=PLrlyZC8nNT0C4smDEY5K4MZZ8lqPNY-oz&jct=ZHcHxgsEnRlw4-QI9UZJJQ"
+                      target="_blank"
+                      className="relative group active:scale-90 transition-transform block"
+                    >
+                      <img src="/youtube.png" className="w-15 h-12 drop-shadow-xl mx-auto" alt="Zenei pecsét" />
+                    </a>
+                  </div>
+
                 </div>
-
-                {/* 2. Szabály */}
-                <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
-                    Ⅱ. A Megjelenés Törvénye
-                  </h3>
-                  <p className="text-[12px] italic leading-relaxed opacity-95">
-                    Kérünk benneteket, hogy megjelenésetekkel emeljétek az alkalom fényét. Kerüljétek a rikító színeket.
-                  </p>
-                </div>
-
-                {/* 3. Szabály */}
-                <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
-                    Ⅲ. A Kincstár Hozzájárulása
-                  </h3>
-                  <p className="text-[12px] italic leading-relaxed opacity-95">
-                    Ha támogatnátok utunkat, kalandunkhoz aranyérméknek örülünk leginkább.
-                  </p>
-                </div>
-
-                {/* 4. Szabály */}
-                <div className="text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
-                    Ⅳ. A Megpihenés Joga
-                  </h3>
-                  <p className="text-[12px] italic leading-relaxed opacity-95">
-                    Minden vándorunk számára biztosítunk éjszakai szállást a helyszínen.
-                  </p>
-                </div>
-
-                {/* 5. Zene */}
-                <div className="flex flex-col items-center text-center">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#f7f6f5]" style={{ fontFamily: "'Cinzel', serif" }}>
-                    Ⅴ. A Vigasság Dallamai
-                  </h3>
-                  <a 
-                    href="https://www.youtube.com/playlist?list=PLrlyZC8nNT0C4smDEY5K4MZZ8lqPNY-oz&jct=ZHcHxgsEnRlw4-QI9UZJJQ" 
-                    target="_blank"
-                    className="relative group active:scale-90 transition-transform block"
-                  >
-                    <img src="/youtube.png" className="w-15 h-12 drop-shadow-lg mx-auto" alt="Zenei pecsét" />
-                  </a>
-                </div>
-
               </div>
             </div>
-          </div>
-
-          
-        </section>
-
+          </section>
 
           {/* TÉRKÉP SZEKCIÓ (Az eredeti kódból maradt) */}
           <section className="map-panel relative h-screen w-full overflow-hidden">
