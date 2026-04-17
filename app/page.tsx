@@ -6,6 +6,52 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// --- KOMPONENS: LEBEGŐ POR / PARÁZS ---
+const Particles = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    let particles: any[] = [];
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    class Particle {
+      x = Math.random() * window.innerWidth;
+      y = Math.random() * window.innerHeight;
+      size = Math.random() * 1.5 + 0.5;
+      speedY = Math.random() * -0.5 - 0.2;
+      speedX = Math.random() * 0.4 - 0.2;
+      opacity = Math.random() * 0.5 + 0.1;
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        if (this.y < 0) this.y = window.innerHeight;
+      }
+      draw() {
+        if (!ctx) return;
+        ctx.fillStyle = `rgba(243, 193, 136, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    for (let i = 0; i < 50; i++) particles.push(new Particle());
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    };
+    window.addEventListener("resize", resize);
+    resize(); animate();
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[80] opacity-40" />;
+};
+
 // --- ADATOK ---
 type TimelineItem = {
   time: string;
@@ -23,8 +69,48 @@ const timeline: TimelineItem[] = [
   { time: "20:00", title: "Ünneplés", subtitle: "Mulatság hajnalig", icon: "🔥" },
 ];
 
+
+
+type RuleItem = {
+  id: string;
+  title: string;
+  text: string;
+  icon: string;
+};
+
+const rules: RuleItem[] = [
+  {
+    id: "invite",
+    title: "A Kiválasztottak Rendje",
+    text: "A birodalom kapui csak a személyesen meghívott vendégek előtt nyílnak meg. NO +1",
+    icon: "/icons/seal-rule.png",
+  },
+  {
+    id: "dress",
+    title: "A Megjelenés Törvénye",
+    text: "Kérünk benneteket, hogy megjelenésetekkel emeljétek az alkalom fényét. Kerüljétek a rikító színeket.",
+    icon: "/icons/crown-rule.png",
+  },
+  {
+    id: "gift",
+    title: "A Kincstár Hozzájárulása",
+    text: "Ha támogatnátok utunkat, kalandunkhoz aranyérméknek örülünk leginkább.",
+    icon: "/icons/pouch-rule.png",
+  },
+  {
+    id: "stay",
+    title: "A Megpihenés Joga",
+    text: "Minden vándorunk számára biztosítunk éjszakai szállást a helyszínen.",
+    icon: "/icons/house-rule.png",
+  },
+];
+
+
+
 const miskolcMapsUrl = "https://www.google.com/maps/search/?api=1&query=Miskolci+V%C3%A1rosh%C3%A1za";
 const borokaMapsUrl = "https://www.google.com/maps/search/?api=1&query=Bor%C3%B3ka+T%C3%A1bor+Nagyvisny%C3%B3";
+
+
 
 export default function Home() {
   // --- ÁLLAPOTOK ---
@@ -112,6 +198,7 @@ export default function Home() {
 
   return (
     <main ref={containerRef} className="relative overflow-x-hidden bg-[#140d09]">
+      <Particles />
       
       {/* --- INTRO RÉTEG (Boríték szétnyílása) --- */}
       {!isOpen && (
@@ -171,6 +258,7 @@ export default function Home() {
       {/* --- FŐ TARTALOM --- */}
       {showMainContent && (
         <div className="animate-in fade-in duration-1000">
+          <Particles />
 
           {/* --- HERO SECTION --- */}
           <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-5 overflow-hidden border-b border-[#8b633d]/20">
