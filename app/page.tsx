@@ -366,7 +366,9 @@ export default function Home() {
 
               </div>
             </div>
+
           </section>
+
 
 
 
@@ -457,6 +459,11 @@ export default function Home() {
             </div>
           </section>
 
+
+
+
+
+
           {/* TÉRKÉP SZEKCIÓ (Az eredeti kódból maradt) */}
           <section className="map-panel relative h-screen w-full overflow-hidden">
 
@@ -498,6 +505,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
           </section>
           
 
@@ -515,11 +523,17 @@ export default function Home() {
                   A Küldetés Menete
                 </h2>
 
-                <div className="relative pl-5">
-                {/* Idővonal vonal */}
-                <div className="absolute left-[10px] top-1 bottom-1 w-[1px] bg-gradient-to-b from-[#8b5d37] via-[#d6a06f] to-[#8b5d37]" />
+                <div className="relative pl-5 timeline-container">
 
-                <div className="space-y-6"> {/* Kicsit nagyobb helyet hagytam köztük, h jobban érvényesüljön a kép */}
+                {/* 1. Statikus alapvonal (halvány) */}
+                <div className="absolute left-[10px] top-0 bottom-0 w-[1px] bg-[#8b5d37]/30" />
+
+                {/* 2. Aktív, feltöltődő vonal (GSAP-pel animálva) */}
+                <div 
+                  className="timeline-progress-line absolute left-[10px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#f3c188] via-[#d6a06f] to-[#f3c188] origin-top scale-y-0 shadow-[0_0_10px_rgba(243,193,136,0.5)]" 
+                />
+
+                <div className="space-y-8"> {/* Kicsit nagyobb helyet hagytam köztük, h jobban érvényesüljön a kép */}
                   {timeline.map((item, index) => (
                     <div
                       key={`${item.time}-${index}`}
@@ -531,8 +545,10 @@ export default function Home() {
                         backgroundPosition: 'center'
                       }}
                     >
+
+
                       {/* Sötétítő réteg és blur - hogy a szöveg kiemelkedjen a háttérből */}
-                      <div className="absolute inset-0 bg-[#140d09]/65 backdrop-blur-[2px]" />
+                      <div className="absolute inset-0 bg-[#140d09]/50 backdrop-blur-[1px]" />
 
                       {/* Tartalom */}
                       <div className="relative z-10 px-5 py-5 flex gap-4">
@@ -564,7 +580,7 @@ export default function Home() {
               </div>
 
                 <p className="text-center text-[#ecd0ac] text-[20px] mt-7 tracking-wide">
-                  Visszajelzés határideje: 2026.08.15
+                  ✧ Visszajelzés határideje: 2026.08.15 ✧
                 </p>
 
                 <div className="h-20" />
