@@ -126,6 +126,11 @@ export default function Home() {
   const introTextRef = useRef<HTMLDivElement>(null);
   const rulesImgRef = useRef<HTMLImageElement>(null);
   const globalBgRef = useRef<HTMLDivElement>(null);
+  const heroNameRef = useRef<HTMLHeadingElement>(null);
+  const heroDividerRef = useRef<HTMLDivElement>(null);
+  const heroDateRef = useRef<HTMLParagraphElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroScrollRef = useRef<HTMLDivElement>(null);
 
 
   // Mobil ellenőrzés
@@ -170,6 +175,34 @@ export default function Home() {
     if (!showMainContent || !isMobile) return;
 
     const ctx = gsap.context(() => {
+      const heroTl = gsap.timeline({ delay: 0.5 });
+      heroTl.from(heroNameRef.current, {
+        y: 30,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power4.out"
+      })
+      .from(heroDividerRef.current, {
+        scaleX: 0,
+        duration: 1,
+        ease: "power2.inOut"
+      }, "-=0.6")
+      .from(heroDateRef.current, {
+        y: 20,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+      }, "-=0.4")
+      .from(".hero-extra", {
+        opacity: 0,
+        y: 10,
+        stagger: 0.2,
+        duration: 1
+      }, "-=0.5")
+      .from(heroScrollRef.current, {
+        opacity: 0,
+        duration: 1.5
+      }, "-=0.2");
       // 1. Lassú Globális Háttér Parallax
       gsap.to(globalBgRef.current, {
         y: "-5%", // Csak kicsit mozdul el
@@ -285,89 +318,54 @@ export default function Home() {
 
       {/* --- FŐ TARTALOM --- */}
       {showMainContent && (
-        <div className="animate-in fade-in duration-1000">
-          <Particles />
-
-          {/* --- FIX PARALLAX HÁTTÉR TEXTÚRA --- */}
+        <div className="relative">
+		    <Particles />
           <div className="fixed inset-0 z-0 pointer-events-none">
-            <div
-              ref={globalBgRef}
-              className="absolute -top-[5%] left-0 w-full h-[110%] bg-cover bg-center brightness-[0.7] sepia-[0.15]"
-              style={{ backgroundImage: "url('/paper-texture.jpg')" }}
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.4)_100%)]" />
+            <div ref={globalBgRef} className="absolute -top-[5%] left-0 w-full h-[110%] bg-cover bg-center brightness-[0.6] sepia-[0.2]" style={{ backgroundImage: "url('/paper-texture.jpg')" }} />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_10%,rgba(10,8,5,0.6)_100%)]" />
           </div>
 
           {/* --- HERO SECTION --- */}
-          <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-5 overflow-hidden border-b border-[#8b633d]/20">
-            {/* Fix Háttér */}
-            <div className="fixed inset-0 z-0">
-              <div
-                className="absolute inset-0 bg-cover bg-center brightness-[0.7] sepia-[0.15]"
-                style={{ backgroundImage: "url('/paper-texture.jpg')" }}
-              />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.4)_100%)]" />
-            </div>
+          <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-5">
+            
+            {/* KÖZÉPSŐ GLOW EFFEKT */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] h-[400px] bg-[#e0d6ce]/5 blur-[80px] rounded-full pointer-events-none z-0" />
 
-            {/* Meghívó panel tartalma - Itt a justify-center és a h-full biztosítja a középre zárást */}
-            <div className="relative z-10 w-full max-w-[370px] flex flex-col items-center justify-center min-h-screen">
-              
-              {/* Mini heading */}
-              <p
-                className="text-[9px] tracking-[0.34em] uppercase text-[#e0d6ce] opacity-75 mb-8"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
+            <div ref={heroContentRef} className="relative z-10 w-full max-w-[370px] flex flex-col items-center">
+              <p className="hero-extra text-[9px] tracking-[0.4em] uppercase text-[#e0d6ce] opacity-70 mb-8" style={{ fontFamily: "'Cinzel', serif" }}>
                 ✧ A Szövetség Megköttetik ✧
               </p>
 
-              {/* Fő név */}
-              <h1
-                className="text-[42px] leading-[1.02] text-[#e0d6ce] mb-6 text-center"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
+              <h1 ref={heroNameRef} className="text-[44px] leading-[1.1] text-[#e0d6ce] mb-6 text-center" style={{ fontFamily: "'Cinzel', serif" }}>
                 Eszter & Péter
               </h1>
 
-              {/* Díszítő sor */}
-              <div className="flex items-center justify-center gap-3 mb-7">
-                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#e0d6ce]/70" />
-                <div className="w-[6px] h-[6px] rotate-45 border border-[#e0d6ce]/70" />
-                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#e0d6ce]/70" />
+              {/* ANIMÁLT DIVIDER */}
+              <div className="relative flex items-center justify-center w-full mb-7">
+                <div ref={heroDividerRef} className="flex items-center justify-center gap-3 w-full origin-center">
+                    <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-[#e0d6ce]/60" />
+                    <div className="w-[6px] h-[6px] rotate-45 border border-[#e0d6ce]/60" />
+                    <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-[#e0d6ce]/60" />
+                </div>
               </div>
 
-              {/* Dátum */}
-              <p
-                className="text-[21px] tracking-[0.10em] uppercase text-[#e0d6ce] mb-8 text-center"
-                style={{ fontFamily: "'Cinzel', serif" }}
-              >
+              <p ref={heroDateRef} className="text-[22px] tracking-[0.15em] uppercase text-[#e0d6ce] mb-8" style={{ fontFamily: "'Cinzel', serif" }}>
                 2026.10.03
               </p>
 
-              {/* Második díszítő sor */}
-              <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="h-[1px] w-10 bg-[#e0d6ce]/28" />
-                <div className="text-[#e0d6ce]/55 text-[11px]">✦</div>
-                <div className="h-[1px] w-10 bg-[#e0d6ce]/28" />
-              </div>
-
-              {/* Idézet */}
-              <div className="text-[#e0d6ce] italic text-[17px] leading-[1.9] text-center">
+              <div className="hero-extra text-[#e0d6ce] italic text-[17px] leading-[1.9] text-center opacity-90">
                 <p>„Két út találkozott...”</p>
                 <p>„Egy közös történet kezdődött...”</p>
               </div>
 
-              {/* Görgetés jelző - absolute pozícióval az aljára, hogy ne tolja el a fenti szöveget */}
-              <div className="absolute bottom-10 flex flex-col items-center gap-4 animate-pulse">
-                <div
-                  className="text-[11px] tracking-[0.2em] text-[#e0d6ce] uppercase opacity-60"
-                  style={{ fontFamily: "'Cinzel', serif" }}
-                >
-                  Haladj tovább
+              {/* STÍLUSOSABB GÖRGETÉS JELZŐ */}
+              <div ref={heroScrollRef} className="absolute -bottom-24 flex flex-col items-center gap-4">
+                <div className="text-[10px] tracking-[0.3em] text-[#e0d6ce] uppercase opacity-50 italic" style={{ fontFamily: "'Cinzel', serif" }}>
+                   A történet folytatódik
                 </div>
-                <div className="w-[1px] h-12 bg-gradient-to-b to-transparent opacity-40" />
+
               </div>
             </div>
-
           </section>
 
 
@@ -600,6 +598,17 @@ export default function Home() {
 
         </div>
       )}
+      <style jsx global>{`
+        @keyframes scroll-line {
+          0% { transform: scaleY(0); transform-origin: top; }
+          45% { transform: scaleY(1); transform-origin: top; }
+          55% { transform: scaleY(1); transform-origin: bottom; }
+          100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+        .animate-scroll-line {
+          animation: scroll-line 2.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        }
+      `}</style>
     </main>
   );
 }
