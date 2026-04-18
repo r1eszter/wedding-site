@@ -124,6 +124,9 @@ export default function Home() {
   const rightPartRef = useRef<HTMLDivElement>(null); // Jobb oldali boríték fél
   const sealRef = useRef<HTMLButtonElement>(null);
   const introTextRef = useRef<HTMLDivElement>(null);
+  const rulesImgRef = useRef<HTMLImageElement>(null);
+  const globalBgRef = useRef<HTMLDivElement>(null);
+
 
   // Mobil ellenőrzés
   useEffect(() => {
@@ -167,21 +170,45 @@ export default function Home() {
     if (!showMainContent || !isMobile) return;
 
     const ctx = gsap.context(() => {
-      gsap.from(".timeline-item", {
+      // 1. Lassú Globális Háttér Parallax
+      gsap.to(globalBgRef.current, {
+        y: "-5%", // Csak kicsit mozdul el
+        ease: "none",
         scrollTrigger: {
-          trigger: ".quest-panel",
-          start: "top 70%",
-        },
-        x: -50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2, // Ez adja meg a sorozatos késleltetést
-        ease: "power2.out"
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1, // Simított mozgás
+        }
       });
-      // Itt tarthatod a többi szekció (map, timeline) animációját...
-    }, containerRef);
 
-    return () => ctx.revert();
+      // 2. Szabályok képének parallax mozgása (kép a keretben)
+      gsap.to(rulesImgRef.current, {
+        yPercent: 10,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".rules-section",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
+
+      // 3. Idővonal elemek megjelenése
+      if (isMobile) {
+        gsap.from(".timeline-item", {
+          scrollTrigger: {
+            trigger: ".quest-panel",
+            start: "top 70%",
+          },
+          x: -50,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out"
+        });
+      }
+    }, containerRef);
 
   }, [showMainContent, isMobile]);
 
@@ -260,6 +287,16 @@ export default function Home() {
       {showMainContent && (
         <div className="animate-in fade-in duration-1000">
           <Particles />
+
+          {/* --- FIX PARALLAX HÁTTÉR TEXTÚRA --- */}
+          <div className="fixed inset-0 z-0 pointer-events-none">
+            <div
+              ref={globalBgRef}
+              className="absolute -top-[5%] left-0 w-full h-[110%] bg-cover bg-center brightness-[0.7] sepia-[0.15]"
+              style={{ backgroundImage: "url('/paper-texture.jpg')" }}
+            />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(10,8,5,0.4)_100%)]" />
+          </div>
 
           {/* --- HERO SECTION --- */}
           <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-5 overflow-hidden border-b border-[#8b633d]/20">
