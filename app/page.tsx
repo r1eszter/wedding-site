@@ -62,11 +62,11 @@ type TimelineItem = {
 
 const timeline: TimelineItem[] = [
   { time: "13:00", title: "Polgári szertartás", subtitle: "Miskolci Városháza", icon: "💍" },
-  { time: "16:00", title: "Vendégváró", subtitle: "Nagyvisnyó", icon: "🍷" },
-  { time: "17:00", title: "Szertartás", subtitle: "A történet folytatódik", icon: "✨" },
+  { time: "15:00", title: "Vendégváró", subtitle: "Nagyvisnyó", icon: "🍷" },
+  { time: "16:00", title: "Helyszini szertartás", subtitle: "A történet folytatódik", icon: "✨" },
+  { time: "17:00", title: "Ajándék / Fotózás", subtitle: "Emlékek és pillanatok", icon: "📷" },
   { time: "18:00", title: "Vacsora", subtitle: "Lakoma", icon: "🍽️" },
-  { time: "19:00", title: "Ajándék / Fotózás", subtitle: "Emlékek és pillanatok", icon: "📷" },
-  { time: "20:00", title: "Ünneplés", subtitle: "Mulatság hajnalig", icon: "🔥" },
+  { time: "19:00", title: "Ünneplés", subtitle: "Mulatság hajnalig", icon: "🔥" },
 ];
 
 
